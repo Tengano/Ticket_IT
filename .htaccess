@@ -1,0 +1,13 @@
+# Laragon đang trỏ DocumentRoot vào thư mục gốc project.
+# File này chuyển mọi request vào public/ và chặn truy cập tệp nhạy cảm.
+# Chuẩn nhất vẫn là cấu hình DocumentRoot = .../TicketIT/public trong vhost.
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    RewriteRule ^(?:\.env(?:\..*)?|\.git|\.agents|\.claude|\.mcp\.json|composer\.(?:json|lock)|package(?:-lock)?\.json|artisan|phpunit\.xml|vite\.config\.js|boost\.json|AGENTS\.md|CLAUDE\.md|README\.md|.*\.md|app|bootstrap|config|database|lang|node_modules|resources|routes|storage|tests|vendor)(?:/|$) - [F,L,NC]
+
+    RewriteCond %{REQUEST_URI} !^/public/
+    RewriteRule ^(.*)$ public/$1 [L]
+</IfModule>
+
+Options -Indexes

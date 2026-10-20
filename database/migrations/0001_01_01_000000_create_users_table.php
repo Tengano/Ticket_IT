@@ -15,8 +15,15 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
+            $table->string('phone', 32)->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->unsignedBigInteger('department_id')->nullable()->index();
+            $table->unsignedBigInteger('location_id')->nullable()->index();
+            $table->boolean('is_active')->default(true);
+            $table->boolean('is_vip')->default(false);
+            $table->string('avatar')->nullable();
+            $table->timestamp('last_assigned_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
