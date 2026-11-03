@@ -19,9 +19,6 @@
 | Sprint 2 | Ticket & vòng đời, bình luận, đính kèm, thông báo | ✅ Hoàn thành |
 | Sprint 3–7 | Phân loại tự động, định tuyến, SLA, báo cáo, tài liệu | 🗺️ Theo kế hoạch |
 
-- **Kiểm thử:** `83 passed (281 assertions)` — PHPUnit 12.
-- **Code style:** Laravel Pint — `115 files PASS`.
-- **Môi trường dev:** Laragon (Apache 2.4.66 + PHP 8.3.30), MySQL 8.4.3, Vite 8.
 
 ---
 
