@@ -25,7 +25,7 @@ class HoSoTest extends TestCase
             ->actingAs($nguoiDung)
             ->patch('/ho-so', [
                 'ten' => 'Người dùng thử nghiệm',
-                'email' => 'test@example.com',
+                'email' => 'test@ticket.it',
             ]);
 
         $phanHoi
@@ -35,7 +35,7 @@ class HoSoTest extends TestCase
         $nguoiDung->refresh();
 
         $this->assertSame('Người dùng thử nghiệm', $nguoiDung->ten);
-        $this->assertSame('test@example.com', $nguoiDung->email);
+        $this->assertSame('test@ticket.it', $nguoiDung->email);
         $this->assertNull($nguoiDung->email_verified_at);
     }
 
@@ -61,7 +61,7 @@ class HoSoTest extends TestCase
 
         $this
             ->actingAs($nguoiDung)
-            ->delete('/ho-so', ['password' => 'password'])
+            ->delete('/ho-so', ['password' => '11111111'])
             ->assertSessionHasNoErrors()
             ->assertRedirect('/');
 

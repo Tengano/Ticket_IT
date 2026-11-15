@@ -20,7 +20,7 @@ class NguoiDungMauSeeder extends Seeder
         $nguoiDungs = [
             [
                 'ten' => 'Quản trị hệ thống',
-                'email' => 'admin@ticketit.test',
+                'email' => 'admin@ticket.it',
                 'role' => 'admin',
                 'phong_ban' => 'CNTT',
                 'vi_tri' => 'Phòng 305',
@@ -28,7 +28,7 @@ class NguoiDungMauSeeder extends Seeder
             ],
             [
                 'ten' => 'Trần Minh Khôi',
-                'email' => 'lead@ticketit.test',
+                'email' => 'lead@ticket.it',
                 'role' => 'lead',
                 'phong_ban' => 'CNTT',
                 'vi_tri' => 'Phòng 305',
@@ -36,7 +36,7 @@ class NguoiDungMauSeeder extends Seeder
             ],
             [
                 'ten' => 'Nguyễn Văn An',
-                'email' => 'agent1@ticketit.test',
+                'email' => 'agent1@ticket.it',
                 'role' => 'agent',
                 'phong_ban' => 'CNTT',
                 'vi_tri' => 'Phòng 305',
@@ -44,7 +44,7 @@ class NguoiDungMauSeeder extends Seeder
             ],
             [
                 'ten' => 'Lê Thị Bình',
-                'email' => 'agent2@ticketit.test',
+                'email' => 'agent2@ticket.it',
                 'role' => 'agent',
                 'phong_ban' => 'CNTT',
                 'vi_tri' => 'Phòng 201',
@@ -52,7 +52,7 @@ class NguoiDungMauSeeder extends Seeder
             ],
             [
                 'ten' => 'Phạm Văn Sinh',
-                'email' => 'requester@ticketit.test',
+                'email' => 'requester@ticket.it',
                 'role' => 'requester',
                 'phong_ban' => 'HCNS',
                 'vi_tri' => 'Phòng 305',
@@ -60,7 +60,7 @@ class NguoiDungMauSeeder extends Seeder
             ],
             [
                 'ten' => 'Hoàng Thị Lan',
-                'email' => 'requester2@ticketit.test',
+                'email' => 'requester2@ticket.it',
                 'role' => 'requester',
                 'phong_ban' => 'KETOAN',
                 'vi_tri' => 'Phòng 201',
@@ -68,7 +68,7 @@ class NguoiDungMauSeeder extends Seeder
             ],
             [
                 'ten' => 'Đặng Quốc Bảo',
-                'email' => 'director@ticketit.test',
+                'email' => 'director@ticket.it',
                 'role' => 'requester',
                 'phong_ban' => 'BGD',
                 'vi_tri' => 'Phòng họp lớn',
@@ -83,7 +83,7 @@ class NguoiDungMauSeeder extends Seeder
                     ['email' => $duLieu['email']],
                     [
                         'ten' => $duLieu['ten'],
-                        'password' => 'password',
+                        'password' => '11111111',
                         'phong_ban_id' => $phongBans[$duLieu['phong_ban']] ?? null,
                         'vi_tri_id' => $viTris[$duLieu['vi_tri']] ?? null,
                         'dang_hoat_dong' => true,
@@ -107,7 +107,7 @@ class NguoiDungMauSeeder extends Seeder
                 $nguoiDung->teams()->sync($pivot);
             }
 
-            $truongNhom = NguoiDung::query()->where('email', 'lead@ticketit.test')->first();
+            $truongNhom = NguoiDung::query()->where('email', 'lead@ticket.it')->first();
 
             if ($truongNhom !== null && isset($nhomXuLys['ho-tro-chung'])) {
                 NhomXuLy::query()->whereKey($nhomXuLys['ho-tro-chung'])->update(['truong_nhom_id' => $truongNhom->id]);

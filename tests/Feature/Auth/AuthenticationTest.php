@@ -24,7 +24,7 @@ class AuthenticationTest extends TestCase
 
         $response = $this->post('/login', [
             'email' => $user->email,
-            'password' => 'password',
+            'password' => '11111111',
         ]);
 
         $this->assertAuthenticated();
@@ -59,7 +59,7 @@ class AuthenticationTest extends TestCase
 
         $response = $this->from('/login')->post('/login', [
             'email' => $user->email,
-            'password' => 'password',
+            'password' => '11111111',
         ]);
 
         $this->assertGuest();
@@ -87,7 +87,7 @@ class AuthenticationTest extends TestCase
 
             $this->post('/login', [
                 'email' => $user->email,
-                'password' => 'password',
+                'password' => '11111111',
             ])->assertRedirect(route('tong-quan', absolute: false));
 
             $this->assertAuthenticatedAs($user);

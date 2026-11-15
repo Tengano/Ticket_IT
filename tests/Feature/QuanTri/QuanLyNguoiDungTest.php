@@ -33,7 +33,7 @@ class QuanLyNguoiDungTest extends TestCase
 
         $this->actingAs($this->quanTri)->post(route('quan-tri.nguoi-dung.store'), [
             'ten' => 'Nguyễn Văn An',
-            'email' => 'an.nguyen@ticketit.test',
+            'email' => 'an.nguyen@ticket.it',
             'dien_thoai' => '0901234567',
             'password' => 'password123',
             'password_confirmation' => 'password123',
@@ -44,7 +44,7 @@ class QuanLyNguoiDungTest extends TestCase
             'la_vip' => '0',
         ])->assertRedirect(route('quan-tri.nguoi-dung.index'))->assertSessionHasNoErrors();
 
-        $nguoiDung = NguoiDung::query()->where('email', 'an.nguyen@ticketit.test')->firstOrFail();
+        $nguoiDung = NguoiDung::query()->where('email', 'an.nguyen@ticket.it')->firstOrFail();
 
         $this->assertTrue($nguoiDung->hasRole('agent'));
         $this->assertTrue($nguoiDung->teams->contains($nhom->id));
@@ -58,7 +58,7 @@ class QuanLyNguoiDungTest extends TestCase
 
         $this->actingAs($this->quanTri)->put(route('quan-tri.nguoi-dung.update', $nguoiDung), [
             'ten' => 'Trần Minh Khôi',
-            'email' => 'khoi.tran@ticketit.test',
+            'email' => 'khoi.tran@ticket.it',
             'role' => 'lead',
             'dang_hoat_dong' => '1',
             'la_vip' => '1',

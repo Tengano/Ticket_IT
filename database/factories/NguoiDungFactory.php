@@ -30,7 +30,7 @@ class NguoiDungFactory extends Factory
             'email' => fake()->unique()->safeEmail(),
             'dien_thoai' => fake()->numerify('09########'),
             'email_verified_at' => now(),
-            'password' => static::$password ??= Hash::make('password'),
+            'password' => static::$password ??= Hash::make('11111111'),
             'dang_hoat_dong' => true,
             'la_vip' => false,
             'remember_token' => Str::random(10),

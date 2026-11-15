@@ -180,17 +180,17 @@ Mở `http://127.0.0.1:8000` (hoặc `http://ticketit.test` nếu dùng Laragon 
 
 ## 🔑 Tài khoản demo
 
-Mật khẩu chung: **`password`**
+Mật khẩu chung: **`11111111`**
 
 | Vai trò | Email | Ghi chú |
 |---|---|---|
-| Quản trị (admin) | `admin@ticketit.test` | Toàn quyền hệ thống |
-| Trưởng nhóm IT (lead) | `lead@ticketit.test` | Trưởng nhóm Hỗ trợ chung |
-| Kỹ thuật viên (agent) | `agent1@ticketit.test` | Nhóm Hỗ trợ chung + Hạ tầng – Mạng |
-| Kỹ thuật viên (agent) | `agent2@ticketit.test` | Nhóm Thiết bị + Ứng dụng – ERP |
-| Người yêu cầu | `requester@ticketit.test` | Phòng HCNS — Phòng 305 |
-| Người yêu cầu | `requester2@ticketit.test` | Phòng Kế toán — Phòng 201 |
-| Người yêu cầu VIP | `director@ticketit.test` | Ban Giám hiệu, `la_vip = true` |
+| Quản trị (admin) | `admin@ticket.it` | Toàn quyền hệ thống |
+| Trưởng nhóm IT (lead) | `lead@ticket.it` | Trưởng nhóm Hỗ trợ chung |
+| Kỹ thuật viên (agent) | `agent1@ticket.it` | Nhóm Hỗ trợ chung + Hạ tầng – Mạng |
+| Kỹ thuật viên (agent) | `agent2@ticket.it` | Nhóm Thiết bị + Ứng dụng – ERP |
+| Người yêu cầu | `requester@ticket.it` | Phòng HCNS — Phòng 305 |
+| Người yêu cầu | `requester2@ticket.it` | Phòng Kế toán — Phòng 201 |
+| Người yêu cầu VIP | `director@ticket.it` | Ban Giám hiệu, `la_vip = true` |
 
 Tài khoản tạo qua trang **Đăng ký** mặc định nhận vai trò `requester`.
 

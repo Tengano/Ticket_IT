@@ -15,7 +15,7 @@
 
         <div>
             <label for="email" class="field-label">Email</label>
-            <input id="email" type="email" name="email" value="{{ old('email') }}" required autocomplete="username" class="field" placeholder="ten.ban@ticketit.test">
+            <input id="email" type="email" name="email" value="{{ old('email') }}" required autocomplete="username" class="field" placeholder="username@ticket.it">
             <x-input-error :messages="$errors->get('email')" class="field-error" />
         </div>
 

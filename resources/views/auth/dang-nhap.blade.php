@@ -11,7 +11,7 @@
 
         <div>
             <label for="email" class="field-label">Email</label>
-            <input id="email" type="email" name="email" value="{{ old('email') }}" required autofocus autocomplete="username" class="field" placeholder="ten.ban@ticketit.test">
+            <input id="email" type="email" name="email" value="{{ old('email') }}" required autofocus autocomplete="username" class="field" placeholder="username@ticket.it">
             <x-input-error :messages="$errors->get('email')" class="field-error" />
         </div>
 
@@ -36,18 +36,8 @@
 
         <p class="text-center text-sm text-slate-500">
             Chưa có tài khoản?
-            <a href="{{ route('register') }}" class="font-medium text-indigo-600 hover:text-indigo-700">Đăng ký người yêu cầu</a>
+            <a href="{{ route('register') }}" class="font-medium text-indigo-600 hover:text-indigo-700">Đăng ký ngay</a>
         </p>
     </form>
 
-    <div class="mt-6 rounded-xl border border-slate-200 bg-slate-50 p-4">
-        <p class="text-xs font-semibold tracking-wide text-slate-500 uppercase">Tài khoản demo</p>
-        <div class="mt-2 grid grid-cols-2 gap-x-4 gap-y-1 text-xs text-slate-600">
-            <span>Quản trị</span><span class="font-mono">admin@ticketit.test</span>
-            <span>Trưởng nhóm</span><span class="font-mono">lead@ticketit.test</span>
-            <span>Kỹ thuật viên</span><span class="font-mono">agent1@ticketit.test</span>
-            <span>Người yêu cầu</span><span class="font-mono">requester@ticketit.test</span>
-        </div>
-        <p class="mt-2 text-xs text-slate-400">Mật khẩu chung: <span class="font-mono">password</span></p>
-    </div>
 </x-guest-layout>

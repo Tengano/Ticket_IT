@@ -24,49 +24,49 @@ class PhieuYeuCauMauSeeder extends Seeder
                 'tieu_de' => 'Không in được từ máy 305',
                 'mo_ta' => 'Máy in HP LaserJet ở phòng 305 không nhận lệnh in, đèn báo lỗi nhấp nháy. Đã thử in từ 2 máy tính khác nhau.',
                 'danh_muc' => 'printer-not-printing', 'anh_huong' => 2, 'khan_cap' => 2,
-                'nguoi_yeu_cau' => 'requester@ticketit.test', 'nguoi_xu_ly' => 'agent2@ticketit.test',
+                'nguoi_yeu_cau' => 'requester@ticket.it', 'nguoi_xu_ly' => 'agent2@ticket.it',
                 'nhom' => 'thiet-bi', 'tien_do' => 'dang_xu_ly', 'so_ngay_truoc' => 1,
             ],
             [
                 'tieu_de' => 'Sập mạng toàn bộ phòng 305',
                 'mo_ta' => 'Cả phòng 305 mất kết nối mạng và wifi từ 8h sáng. Khoảng 25 người không truy cập được ERP và email.',
                 'danh_muc' => 'network-down', 'anh_huong' => 3, 'khan_cap' => 3,
-                'nguoi_yeu_cau' => 'requester@ticketit.test', 'nguoi_xu_ly' => 'lead@ticketit.test',
+                'nguoi_yeu_cau' => 'requester@ticket.it', 'nguoi_xu_ly' => 'lead@ticket.it',
                 'nhom' => 'ha-tang-mang', 'tien_do' => 'dang_xu_ly', 'so_ngay_truoc' => 0,
             ],
             [
                 'tieu_de' => 'Quên mật khẩu tài khoản LMS',
                 'mo_ta' => 'Tôi quên mật khẩu đăng nhập LMS, cần cấp lại để kịp nhập điểm cho lớp CNTT K12.',
                 'danh_muc' => 'account-forgot', 'anh_huong' => 1, 'khan_cap' => 2,
-                'nguoi_yeu_cau' => 'requester2@ticketit.test', 'nguoi_xu_ly' => 'agent1@ticketit.test',
+                'nguoi_yeu_cau' => 'requester2@ticket.it', 'nguoi_xu_ly' => 'agent1@ticket.it',
                 'nhom' => 'ho-tro-chung', 'tien_do' => 'da_dong', 'so_ngay_truoc' => 4,
             ],
             [
                 'tieu_de' => 'Email không gửi được cho sinh viên',
                 'mo_ta' => 'Khi gửi email thông báo lịch thi, hệ thống trả về lỗi Message not delivered. Đã thử gửi lại nhiều lần.',
                 'danh_muc' => 'email-send', 'anh_huong' => 2, 'khan_cap' => 2,
-                'nguoi_yeu_cau' => 'requester2@ticketit.test', 'nguoi_xu_ly' => null,
+                'nguoi_yeu_cau' => 'requester2@ticket.it', 'nguoi_xu_ly' => null,
                 'nhom' => 'ung-dung-erp', 'tien_do' => 'moi', 'so_ngay_truoc' => 0,
             ],
             [
                 'tieu_de' => 'Lỗi đăng nhập ERP phân hệ kế toán',
                 'mo_ta' => 'Tài khoản kế toán báo Invalid company code sau khi đổi mật khẩu Windows. Cần hỗ trợ trước 14h để chốt số liệu.',
                 'danh_muc' => 'erp-login', 'anh_huong' => 2, 'khan_cap' => 3,
-                'nguoi_yeu_cau' => 'requester2@ticketit.test', 'nguoi_xu_ly' => null,
+                'nguoi_yeu_cau' => 'requester2@ticket.it', 'nguoi_xu_ly' => null,
                 'nhom' => 'ung-dung-erp', 'tien_do' => 'moi', 'so_ngay_truoc' => 0,
             ],
             [
                 'tieu_de' => 'Máy tính phòng 201 không lên nguồn',
                 'mo_ta' => 'Máy tính để bàn không lên nguồn, quạt nguồn không quay. Đã kiểm tra dây điện và ổ cắm.',
                 'danh_muc' => 'hardware-power', 'anh_huong' => 1, 'khan_cap' => 3,
-                'nguoi_yeu_cau' => 'requester2@ticketit.test', 'nguoi_xu_ly' => 'agent2@ticketit.test',
+                'nguoi_yeu_cau' => 'requester2@ticket.it', 'nguoi_xu_ly' => 'agent2@ticket.it',
                 'nhom' => 'thiet-bi', 'tien_do' => 'da_giai_quyet', 'so_ngay_truoc' => 3,
             ],
             [
                 'tieu_de' => 'Email lừa đảo mạo danh phòng đào tạo',
                 'mo_ta' => 'Tôi nhận được email yêu cầu đăng nhập lại cổng thông tin bằng liên kết lạ, nghi ngờ bị phishing.',
                 'danh_muc' => 'security-phishing', 'anh_huong' => 2, 'khan_cap' => 2,
-                'nguoi_yeu_cau' => 'director@ticketit.test', 'nguoi_xu_ly' => null,
+                'nguoi_yeu_cau' => 'director@ticket.it', 'nguoi_xu_ly' => null,
                 'nhom' => 'bao-mat', 'tien_do' => 'moi', 'so_ngay_truoc' => 0,
             ],
         ];
@@ -122,7 +122,7 @@ class PhieuYeuCauMauSeeder extends Seeder
 
     private function taoTraoDoi(DichVuPhieuYeuCau $dichVu, PhieuYeuCau $phieu, NguoiDung $nguoiYeuCau, ?NguoiDung $nguoiXuLy): void
     {
-        $nhanVien = $nguoiXuLy ?? NguoiDung::query()->where('email', 'agent1@ticketit.test')->first();
+        $nhanVien = $nguoiXuLy ?? NguoiDung::query()->where('email', 'agent1@ticket.it')->first();
 
         if ($nhanVien === null) {
             return;
