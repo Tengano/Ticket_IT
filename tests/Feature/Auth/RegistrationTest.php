@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Auth;
 
-use Database\Seeders\RolePermissionSeeder;
+use Database\Seeders\VaiTroQuyenSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -14,7 +14,7 @@ class RegistrationTest extends TestCase
     {
         parent::setUp();
 
-        $this->seed(RolePermissionSeeder::class);
+        $this->seed(VaiTroQuyenSeeder::class);
     }
 
     public function test_registration_screen_can_be_rendered(): void
@@ -27,14 +27,14 @@ class RegistrationTest extends TestCase
     public function test_new_users_can_register(): void
     {
         $response = $this->post('/register', [
-            'name' => 'Test User',
+            'ten' => 'Test NguoiDung',
             'email' => 'test@example.com',
             'password' => 'password',
             'password_confirmation' => 'password',
         ]);
 
         $this->assertAuthenticated();
-        $response->assertRedirect(route('dashboard', absolute: false));
+        $response->assertRedirect(route('tong-quan', absolute: false));
 
         $this->assertTrue(auth()->user()->hasRole('requester'));
     }

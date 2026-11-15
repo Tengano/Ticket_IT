@@ -10,16 +10,16 @@ class DatabaseSeeder extends Seeder
     use WithoutModelEvents;
 
     /**
-     * Seed the application's database.
+     * Nạp dữ liệu mẫu cho ứng dụng.
      */
     public function run(): void
     {
         $this->call([
-            RolePermissionSeeder::class,
-            OrganizationSeeder::class,
-            CategorySeeder::class,
-            DemoUserSeeder::class,
-            DemoTicketSeeder::class,
+            VaiTroQuyenSeeder::class,
+            ToChucSeeder::class,
+            DanhMucSeeder::class,
+            NguoiDungMauSeeder::class,
+            PhieuYeuCauMauSeeder::class,
         ]);
     }
 }

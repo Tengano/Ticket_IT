@@ -1,54 +1,47 @@
-# 🎫 IT Helpdesk — Hệ thống Ticket hỗ trợ IT
+# 🎫 Hệ thống hỗ trợ IT (TicketIT)
 
-Ứng dụng tiếp nhận, phân loại, xử lý và theo dõi yêu cầu hỗ trợ IT nội bộ theo quy trình ITIL rút gọn. Người dùng gửi ticket qua web; kỹ thuật viên tiếp nhận, trao đổi, ghi chú nội bộ và cập nhật trạng thái; quản trị viên cấu hình vai trò, nhóm xử lý và danh mục nền.
+Ứng dụng tiếp nhận, phân loại, xử lý và theo dõi yêu cầu hỗ trợ IT nội bộ.
+Người dùng gửi **phiếu yêu cầu** qua web; kỹ thuật viên tiếp nhận, trao đổi, ghi chú nội bộ và cập nhật trạng thái;
+quản trị viên cấu hình vai trò, nhóm xử lý và danh mục nền.
+
+> Toàn bộ mã nguồn, tên bảng/cột cơ sở dữ liệu và tên tệp đã được Việt hoá để dễ đọc, dễ bảo vệ đồ án.
+> Các thành phần hạ tầng của framework (bảng `sessions`, `cache`, `jobs`, `notifications`, bảng phân quyền của Spatie,
+> route xác thực `login`/`register`...) được giữ nguyên tên gốc.
 
 ![Laravel](https://img.shields.io/badge/Laravel-13.x-FF2D20?logo=laravel&logoColor=white)
 ![PHP](https://img.shields.io/badge/PHP-8.3-777BB4?logo=php&logoColor=white)
 ![MySQL](https://img.shields.io/badge/MySQL-8.4-4479A1?logo=mysql&logoColor=white)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4.3-06B6D4?logo=tailwindcss&logoColor=white)
-![Tests](https://img.shields.io/badge/tests-83%20passed-brightgreen)
+![Tests](https://img.shields.io/badge/tests-79%20passed-brightgreen)
 
 ---
 
-## 📌 Trạng thái dự án
-
-| Sprint | Nội dung | Trạng thái |
-|---|---|---|
-| Sprint 0 | Khởi tạo project, layout, môi trường | ✅ Hoàn thành |
-| Sprint 1 | Auth, vai trò/quyền, quản lý người dùng, danh mục nền | ✅ Hoàn thành |
-| Sprint 2 | Ticket & vòng đời, bình luận, đính kèm, thông báo | ✅ Hoàn thành |
-| Sprint 3–7 | Phân loại tự động, định tuyến, SLA, báo cáo, tài liệu | 🗺️ Theo kế hoạch |
-
-
----
-
-## ✨ Tính năng đã có
+## ✨ Tính năng
 
 ### 🔐 Xác thực & phân quyền
 - Đăng nhập, đăng ký, quên/đặt lại mật khẩu, xác nhận mật khẩu — giao diện tiếng Việt.
 - 4 vai trò: **Người yêu cầu (requester)**, **Kỹ thuật viên (agent)**, **Trưởng nhóm IT (lead)**, **Quản trị (admin)**.
-- Phân quyền theo permission + policy: xem/sửa/đóng/gán ticket, ghi chú nội bộ, tải tệp, quản trị người dùng/danh mục.
+- Phân quyền theo quyền + policy: xem/sửa/đóng/phân công phiếu, ghi chú nội bộ, tải tệp, quản trị người dùng/danh mục.
 - Chặn tài khoản bị vô hiệu hoá (middleware + kiểm tra khi đăng nhập).
-- Requester chỉ xem/đóng/mở lại ticket của mình; ghi chú nội bộ và tệp nội bộ chỉ dành cho staff.
 
-### 🎫 Ticket & vòng đời
-- Tạo ticket với tiêu đề, mô tả, danh mục 2 cấp, mức ảnh hưởng, độ khẩn cấp, phòng ban, vị trí, tệp đính kèm.
-- Danh sách ticket có tìm kiếm, lọc theo trạng thái/ưu tiên/danh mục/người phụ trách, phân trang.
-- Trang chi tiết: mô tả, tệp đính kèm, timeline hoạt động, bình luận công khai, **ghi chú nội bộ**, đổi trạng thái/ưu tiên, phân công, đóng/mở lại.
-- Mã ticket tự sinh `TK-YYYY-NNNNNN`; ma trận **Impact × Urgency → P1–P4**.
-- State machine 8 trạng thái: `new → assigned → in_progress → waiting_on_user/waiting_on_vendor → resolved → closed → reopened`, có guard chặn chuyển trạng thái sai.
-- Ghi nhận `ticket_events` và `ticket_status_histories` cho mọi thay đổi; lưu mốc `first_responded_at`, `resolved_at`, `closed_at`, `handling_minutes`, `reopened_count`.
+### 🎫 Phiếu yêu cầu & vòng đời
+- Tạo phiếu với tiêu đề, mô tả, danh mục 2 cấp, mức ảnh hưởng, độ khẩn cấp, phòng ban, vị trí, tệp đính kèm.
+- Danh sách phiếu có tìm kiếm, lọc theo trạng thái/ưu tiên/danh mục/nhóm/người phụ trách, phân trang.
+- Trang chi tiết: mô tả, tệp đính kèm, dòng thời gian hoạt động, bình luận công khai, **ghi chú nội bộ**,
+  đổi trạng thái/ưu tiên, phân công, đóng/mở lại.
+- Mã phiếu tự sinh `TK-YYYY-NNNNNN`; mức ưu tiên tính tự động theo ma trận **Ảnh hưởng × Khẩn cấp → P1–P4**.
+- Máy trạng thái 8 bước: `moi → da_phan_cong → dang_xu_ly → cho_nguoi_dung / cho_nha_cung_cap → da_giai_quyet → da_dong → mo_lai`.
+- Ghi nhận `su_kien_phieu` và `lich_su_trang_thai` cho mọi thay đổi.
 
 ### 🗂️ Quản trị & danh mục nền
-- CRUD người dùng, bật/tắt tài khoản, gán vai trò, phòng ban, vị trí, nhóm xử lý, kỹ năng.
-- CRUD phòng ban, vị trí, nhóm xử lý (trưởng nhóm/thành viên/chiến lược phân công/định mức), kỹ năng.
-- CRUD lịch làm việc: nhiều khung giờ/ngày, ngày lễ, lịch mặc định — nền tảng cho SLA ở Sprint 5.
-- Seeder dữ liệu mẫu: 5 phòng ban, 5 vị trí, 5 nhóm, 9 kỹ năng, 8 danh mục cha + 22 danh mục con, 7 người dùng, 7 ticket demo.
+- CRUD người dùng, bật/tắt tài khoản, gán vai trò, phòng ban, vị trí, nhóm xử lý.
+- CRUD phòng ban, vị trí, nhóm xử lý (trưởng nhóm/thành viên/chiến lược phân công/định mức).
+- Dữ liệu mẫu: 5 phòng ban, 5 vị trí, 5 nhóm xử lý, 8 danh mục cha + 22 danh mục con, 7 người dùng, 7 phiếu demo.
 
 ### 🔔 Thông báo & trải nghiệm
-- Chuông thông báo trong app (dropdown + trang quản lý, đánh dấu đã đọc) và email qua Mailpit SMTP.
-- Dashboard theo vai trò: ticket đang mở, chưa phân công, được giao cho tôi, P1, ticket gần đây, hàng đợi chưa phân công.
-- Layout sidebar + topbar + breadcrumb, responsive, Tailwind CSS 4 + Alpine.js.
+- Chuông thông báo trong ứng dụng (dropdown + trang quản lý, đánh dấu đã đọc) và email qua Mailpit SMTP.
+- Tổng quan theo vai trò: phiếu đang mở, chưa phân công, được giao cho tôi, P1, phiếu gần đây, hàng đợi chưa phân công.
+- Sidebar + topbar + breadcrumb, responsive, Tailwind CSS 4 + Alpine.js.
 - Hồ sơ cá nhân: cập nhật thông tin, đổi mật khẩu, xoá tài khoản có xác nhận.
 
 ---
@@ -62,11 +55,71 @@
 | Giao diện | Blade, Tailwind CSS 4.3, Alpine.js 3.17, Vite 8 |
 | Xác thực | Laravel Breeze 2.4 (Blade) |
 | Phân quyền | spatie/laravel-permission 8.3 |
-| Kiểm thử | PHPUnit 12.5 |
-| Code style | Laravel Pint 1.32 |
-| Hàng đợi / cache / session | Driver `database` |
+| Kiểm thử | PHPUnit 12.5 (`php artisan test`) |
+| Code style | Laravel Pint |
+| Hàng đợi / cache / phiên | Driver `database` |
 | Email dev | Mailpit (`127.0.0.1:1025`, UI `:8025`) |
-| Hỗ trợ AI (tuỳ chọn) | Laravel Boost 2.10 (dev) |
+
+
+---
+
+## 🗄️ Cấu trúc cơ sở dữ liệu (tiếng Việt)
+
+| Bảng | Cột chính | Ý nghĩa |
+|---|---|---|
+| `nguoi_dung` | ten, email, dien_thoai, password, phong_ban_id, vi_tri_id, dang_hoat_dong, la_vip | Tài khoản người dùng |
+| `phong_ban` | ma, ten, mo_ta, dang_hoat_dong | Danh mục phòng ban |
+| `vi_tri` | ten, toa_nha, tang, khu_vuc, dang_hoat_dong | Vị trí / phòng làm việc |
+| `nhom_xu_ly` | ma, ten, truong_nhom_id, chien_luoc_phan_cong, dinh_muc | Nhóm kỹ thuật viên |
+| `nhom_xu_ly_nguoi_dung` | nhom_xu_ly_id, nguoi_dung_id, la_truong_nhom | Thành viên nhóm |
+| `danh_muc` | danh_muc_cha_id, ma, ten, nhom_mac_dinh_id, uu_tien_mac_dinh | Danh mục sự cố 2 cấp |
+| `phieu_yeu_cau` | ma, tieu_de, mo_ta, nguoi_yeu_cau_id, trang_thai, uu_tien, anh_huong, khan_cap | Phiếu yêu cầu hỗ trợ |
+| `binh_luan_phieu` | phieu_yeu_cau_id, nguoi_dung_id, noi_dung, loai, la_phan_hoi_dau | Bình luận / ghi chú nội bộ |
+| `tep_dinh_kem` | phieu_yeu_cau_id, binh_luan_id, nguoi_tai_len_id, duong_dan, ten_goc, kich_thuoc | Tệp đính kèm |
+| `su_kien_phieu` | phieu_yeu_cau_id, nguoi_thuc_hien_id, loai, tu_gia_tri, den_gia_tri, du_lieu_them | Nhật ký hoạt động |
+| `lich_su_trang_thai` | phieu_yeu_cau_id, trang_thai_truoc, trang_thai_sau, bat_dau_luc, ket_thuc_luc, so_phut | Lịch sử trạng thái |
+| `nguoi_theo_doi` | phieu_yeu_cau_id, nguoi_dung_id | Người theo dõi phiếu |
+
+Giá trị trạng thái lưu trong CSDL cũng là tiếng Việt không dấu:
+`moi`, `da_phan_cong`, `dang_xu_ly`, `cho_nguoi_dung`, `cho_nha_cung_cap`, `da_giai_quyet`, `da_dong`, `mo_lai`;
+loại bình luận: `cong_khai`, `noi_bo`.
+
+---
+
+## 📁 Cấu trúc mã nguồn
+
+```
+app/
+├── Enums/              TrangThaiPhieu, UuTienPhieu, MucAnhHuong, MucKhanCap, LoaiBinhLuan, LoaiSuKienPhieu
+├── Http/
+│   ├── Controllers/    PhieuYeuCauController, BinhLuanPhieuController, TepDinhKemPhieuController,
+│   │                   ThongBaoController, TongQuanController, HoSoController
+│   │   ├── Admin/      NguoiDungController, PhongBanController, ViTriController, NhomXuLyController
+│   │   └── Auth/       PhienDangNhapController, DangKyController, DatLaiMatKhauController, ...
+│   ├── Middleware/     EnsureUserIsActive
+│   └── Requests/       LuuPhieuYeuCauRequest, CapNhatPhieuYeuCauRequest, LuuBinhLuanRequest, ...
+├── Models/             NguoiDung, PhongBan, ViTri, NhomXuLy, DanhMuc, PhieuYeuCau,
+│                       BinhLuanPhieu, TepDinhKem, SuKienPhieu, LichSuTrangThai, NguoiTheoDoi
+├── Notifications/      ThongBaoPhieu
+├── Policies/           PhieuYeuCauPolicy, TepDinhKemPolicy
+└── Services/Phieu/     DichVuPhieuYeuCau, DichVuTepDinhKem, DichVuThongBaoPhieu
+
+resources/views/
+├── phieu-yeu-cau/      index, create, show
+├── quan-tri/           nguoi-dung, phong-ban, vi-tri, nhom-xu-ly
+├── ho-so/              edit + partials
+├── thong-bao/          index
+├── tong-quan.blade.php
+├── auth/               dang-nhap, dang-ky, quen-mat-khau, dat-lai-mat-khau, xac-nhan-mat-khau, xac-thuc-email
+└── layouts/            app, guest
+
+database/migrations/    tao_bang_nguoi_dung, tao_bang_to_chuc, tao_bang_nhom_xu_ly,
+                        tao_bang_danh_muc, tao_bang_phieu_yeu_cau
+```
+
+Tên hàm, biến và quan hệ trong Eloquent vẫn giữ tiếng Anh (`$phieu->requester`, `statusHistories()`...)
+theo quy ước của Laravel; phần hiển thị và dữ liệu đều là tiếng Việt.
+
 
 ---
 
@@ -74,40 +127,28 @@
 
 | Thành phần | Yêu cầu tối thiểu |
 |---|---|
-| PHP | **≥ 8.3** (đã kiểm tra với 8.3.30), extension: `pdo_mysql`, `mbstring`, `openssl`, `fileinfo`, `gd`, `intl`, `zip`, `curl` |
+| PHP | **≥ 8.3**, extension: `pdo_mysql`, `mbstring`, `openssl`, `fileinfo`, `intl`, `zip`, `curl` |
 | Composer | 2.x |
-| MySQL | **≥ 8.0** (đã kiểm tra với 8.4.3) |
-| Node.js / npm | Node ≥ 18 (đã kiểm tra với Node 24) |
+| MySQL | **≥ 8.0** |
+| Node.js / npm | Node ≥ 18 |
 | Web server | Laragon (Apache/Nginx) hoặc `php artisan serve` |
-| Email dev | Mailpit của Laragon (SMTP `127.0.0.1:1025`, UI `http://127.0.0.1:8025`) |
+| Email dev | Mailpit của Laragon |
 
 ---
 
 ## 🚀 Cài đặt
 
-### 1. Cài dependency
-
 ```bash
 composer install
 npm install
-```
-
-### 2. Tạo file môi trường
-
-```bash
-# Windows
-copy .env.example .env
-
-# macOS / Linux
-cp .env.example .env
-
+copy .env.example .env      # macOS/Linux: cp .env.example .env
 php artisan key:generate
 ```
 
-Các biến quan trọng trong `.env`:
+Cấu hình `.env` quan trọng:
 
 ```dotenv
-APP_NAME="IT Helpdesk"
+APP_NAME="Hệ thống hỗ trợ IT"
 APP_URL=http://ticketit.test
 APP_LOCALE=vi
 APP_TIMEZONE=Asia/Ho_Chi_Minh
@@ -119,58 +160,21 @@ DB_DATABASE=ticket_it
 DB_USERNAME=root
 DB_PASSWORD=
 
-SESSION_DRIVER=database
-CACHE_STORE=database
-QUEUE_CONNECTION=database
-
 MAIL_MAILER=smtp
 MAIL_HOST=127.0.0.1
 MAIL_PORT=1025
-MAIL_FROM_ADDRESS="helpdesk@ticketit.test"
 ```
 
-> Nếu MySQL có mật khẩu, cập nhật `DB_PASSWORD`. Nếu không dùng MySQL, có thể chuyển `.env` sang SQLite (`DB_CONNECTION=sqlite`, `DB_DATABASE=database/database.sqlite`).
-
-### 3. Tạo database
+Tạo database và nạp dữ liệu mẫu:
 
 ```bash
 mysql -u root -e "CREATE DATABASE IF NOT EXISTS ticket_it CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
-```
-
-Hoặc tạo bằng HeidiSQL / phpMyAdmin với charset `utf8mb4`, collation `utf8mb4_unicode_ci`.
-
-### 4. Chạy migration + dữ liệu mẫu
-
-```bash
 php artisan migrate:fresh --seed
-```
-
-Seeder sẽ tạo sẵn vai trò/quyền, phòng ban, vị trí, nhóm xử lý, kỹ năng, lịch làm việc, danh mục 2 cấp, tài khoản demo và ticket mẫu.
-
-### 5. Build frontend & chạy ứng dụng
-
-```bash
 npm run build
 php artisan serve
 ```
 
-Mở `http://127.0.0.1:8000`. Khi phát triển giao diện, dùng `npm run dev` (hoặc `composer run dev`) để có HMR.
-
-### 6. Chạy bằng Laragon (khuyến nghị)
-
-1. Đặt project tại `K:\Apps\Laragon\www\TicketIT`.
-2. Bật **Start All** (Apache + MySQL).
-3. Vhost `auto.TicketIT.test.conf` phải trỏ:
-   ```apache
-   define ROOT "K:/Apps/laragon/www/TicketIT/public"
-   ```
-4. Apache phải dùng **PHP 8.3** (`K:\Apps\Laragon\etc\apache2\mod_php.conf` trỏ tới `php8apache2_4.dll` của PHP 8.3.30).
-5. Mở `http://ticketit.test`.
-
-> **Xử lý sự cố thường gặp**
-> - Trang `Index of /`: DocumentRoot đang trỏ thư mục gốc → sửa về `.../TicketIT/public` (hoặc file `.htaccess` ở root sẽ tự rewrite vào `public/`).
-> - Lỗi `500` kèm `Composer detected issues... running 7.4.x`: Apache đang dùng PHP 7.4 → chuyển sang PHP 8.3 rồi restart Apache.
-> - Không nhận email: bật Mailpit trong Laragon và kiểm tra `MAIL_PORT=1025`.
+Mở `http://127.0.0.1:8000` (hoặc `http://ticketit.test` nếu dùng Laragon với DocumentRoot trỏ `.../public`).
 
 ---
 
@@ -181,149 +185,30 @@ Mật khẩu chung: **`password`**
 | Vai trò | Email | Ghi chú |
 |---|---|---|
 | Quản trị (admin) | `admin@ticketit.test` | Toàn quyền hệ thống |
-| Trưởng nhóm IT (lead) | `lead@ticketit.test` | Trưởng nhóm Hỗ trợ chung, có `report.view` |
+| Trưởng nhóm IT (lead) | `lead@ticketit.test` | Trưởng nhóm Hỗ trợ chung |
 | Kỹ thuật viên (agent) | `agent1@ticketit.test` | Nhóm Hỗ trợ chung + Hạ tầng – Mạng |
 | Kỹ thuật viên (agent) | `agent2@ticketit.test` | Nhóm Thiết bị + Ứng dụng – ERP |
 | Người yêu cầu | `requester@ticketit.test` | Phòng HCNS — Phòng 305 |
 | Người yêu cầu | `requester2@ticketit.test` | Phòng Kế toán — Phòng 201 |
-| Người yêu cầu VIP | `director@ticketit.test` | Ban Giám hiệu, `is_vip = true` |
+| Người yêu cầu VIP | `director@ticketit.test` | Ban Giám hiệu, `la_vip = true` |
 
-> Tài khoản tạo qua trang **Đăng ký** mặc định nhận vai trò `requester`.
+Tài khoản tạo qua trang **Đăng ký** mặc định nhận vai trò `requester`.
 
 ---
 
 ## 🧪 Kiểm thử & chất lượng mã nguồn
 
 ```bash
-# Toàn bộ test
-php artisan test
-
-# Chạy một nhóm test
-php artisan test --filter=TicketLifecycleTest
-php artisan test tests/Feature/Ticket
-
-# Format code
-vendor/bin/pint --dirty
-
-# Build frontend
-npm run build
-```
-
-- **83 test / 281 assertions** bao phủ: đăng nhập 4 vai trò, phân quyền, quản lý người dùng, CRUD danh mục, tạo ticket, ma trận ưu tiên, vòng đời trạng thái, đóng/mở lại, ghi chú nội bộ, đính kèm, thông báo và bảo mật tệp.
-- PHPUnit dùng **SQLite `:memory:`** theo `phpunit.xml` nên chạy nhanh và độc lập với MySQL.
-- Test nằm trong `tests/Feature` (Auth, Admin, Ticket, AccessControl) và `tests/Unit` (state machine, priority matrix).
-
----
-
-## 🗂️ Cấu trúc chính
-
-```text
-app/
-├── Enums/                     # TicketStatus, TicketPriority, Impact, Urgency, CommentType, TicketEventType
-├── Http/
-│   ├── Controllers/           # Dashboard, Ticket, TicketComment, TicketAttachment, Notification, Profile
-│   │   ├── Admin/             # User, Department, Location, Team, Skill, BusinessCalendar
-│   │   └── Auth/              # Breeze controllers
-│   ├── Middleware/            # EnsureUserIsActive
-│   └── Requests/              # StoreTicketRequest, StoreTicketCommentRequest, Admin/*
-├── Models/                    # Ticket, TicketComment, TicketAttachment, TicketEvent, User, Team, Category...
-├── Notifications/             # TicketNotification (database + mail)
-├── Policies/                  # TicketPolicy, TicketAttachmentPolicy
-├── Services/Tickets/          # TicketService, TicketNotifier, TicketAttachmentService
-└── Providers/
-
-database/
-├── migrations/                # users, organization, teams, categories, tickets, permissions, notifications
-├── factories/
-└── seeders/                   # RolePermission, Organization, Category, DemoUser, DemoTicket
-
-resources/views/
-├── layouts/                   # app (sidebar/topbar), guest
-├── components/                # page-header, status-badge, priority-badge, stat-card, icon...
-├── tickets/                   # index, create, show
-├── admin/                     # users, departments, locations, teams, skills, calendars
-├── notifications/
-├── auth/ · profile/ · dashboard.blade.php
-
-lang/vi/                       # auth, passwords, validation, pagination
-tests/Feature/ · tests/Unit/
+php artisan test          # 79 test (Unit + Feature)
+vendor/bin/pint           # định dạng mã nguồn theo chuẩn Laravel
+php artisan route:list    # danh sách route tiếng Việt
 ```
 
 ---
 
-## 📐 Quy tắc nghiệp vụ
+## 🗺️ Hướng phát triển
 
-**Mã ticket:** `TK-YYYY-NNNNNN` (ví dụ `TK-2026-000001`), tăng dần theo năm.
-
-**Ma trận Impact × Urgency:**
-
-| Impact \ Urgency | Thấp | Trung bình | Cao |
-|---|---|---|---|
-| **Cao** | P3 | P2 | **P1** |
-| **Trung bình** | P4 | P3 | P2 |
-| **Thấp** | P4 | P4 | P3 |
-
-**Vòng đời trạng thái:**
-
-```text
-new → assigned → in_progress ↔ waiting_on_user / waiting_on_vendor
-                         ↓
-                     resolved → closed → reopened → in_progress...
-```
-
-**Phân quyền chính:**
-
-| Hành động | Requester | Agent / Lead | Admin |
-|---|---|---|---|
-| Xem ticket | Chỉ ticket của mình | Tất cả | Tất cả |
-| Tạo ticket | ✅ | ✅ | ✅ |
-| Đổi trạng thái / phân công | ❌ | ✅ | ✅ |
-| Ghi chú nội bộ | ❌ | ✅ | ✅ |
-| Đóng / mở lại | Ticket của mình (mở lại khi đã resolved/closed) | Tất cả | Tất cả |
-| Quản lý người dùng / danh mục | ❌ | ❌ | ✅ |
-
-**Tệp đính kèm:** tối đa 5 tệp/ticket, mỗi tệp ≤ 5 MB; hỗ trợ ảnh, PDF, Word, Excel, PowerPoint, text, CSV, ZIP/RAR. Tệp của ghi chú nội bộ chỉ staff được tải.
-
-**Thông báo:** gửi khi tạo ticket, phân công, đổi trạng thái, có bình luận/ghi chú nội bộ hoặc tệp mới; hiển thị trong app và gửi email qua Mailpit.
-
----
-
-## 🗺️ Lộ trình tiếp theo
-
-| Sprint | Nội dung |
-|---|---|
-| Sprint 3 | Phân loại tự động: Rule + Naive Bayes, tiền xử lý tiếng Việt, hàng đợi triage, đánh giá accuracy/F1 |
-| Sprint 4 | Định tuyến & phân công: rule danh mục → nhóm, 3 chiến lược gán, claim, leo thang |
-| Sprint 5 | SLA engine: giờ làm việc, tạm dừng, cảnh báo 80%, vi phạm, KPI FRT/MTTR/P90 |
-| Sprint 6 | Dashboard báo cáo, xuất Excel/PDF, Knowledge Base, CSAT, audit log, bảo mật |
-| Sprint 7 | ERD/Use Case, tài liệu thuật toán, số liệu thực nghiệm, demo, slide bảo vệ |
-
-Các cột phục vụ Sprint 3–5 đã có sẵn trên bảng `tickets`: `ai_confidence`, `ai_category_id`, `needs_triage`, `first_responded_at`, `resolved_at`, `closed_at`, `handling_minutes`, `waiting_minutes`, `paused_minutes`, `reopened_count`.
-
----
-
-## 📚 Tài liệu nội bộ
-
-| File | Nội dung |
-|---|---|
-| `KE_HOACH_HE_THONG_TICKET_IT.md` | Kế hoạch tổng thể, kiến trúc, 3 trụ kỹ thuật, KPI |
-| `PHU_LUC_MA_NGUON_TICKET_IT.md` | Mã nguồn mẫu: classification, routing, SLA, BusinessTimeCalculator |
-| `TODO_TICKET_IT.md` | Danh sách công việc theo Sprint + ghi chú triển khai |
-
-> Các file tài liệu này đang được `.gitignore` (chỉ lưu cục bộ), không ảnh hưởng đến ứng dụng.
-
----
-
-## ⚠️ Giới hạn hiện tại
-
-- Chưa có **SLA engine** và bộ lọc SLA state (Sprint 5).
-- Chưa có **phân loại tự động** — người dùng chọn danh mục thủ công (Sprint 3).
-- Định tuyến mới ở mức gán nhóm mặc định theo danh mục và phân công thủ công (Sprint 4).
-- Thông báo gửi đồng bộ; nếu Mailpit chưa bật, email được ghi log và không chặn thao tác, thông báo trong app vẫn hoạt động.
-- Chưa có Knowledge Base, CSAT, báo cáo/xuất Excel-PDF và audit log giao diện (Sprint 6).
-
----
-
-## 📄 Mục đích sử dụng
-
-Dự án phục vụ học tập/đồ án và demo quy trình IT Helpdesk nội bộ. Framework Laravel được phát hành theo giấy phép MIT; mã nguồn ứng dụng có thể điều chỉnh cho mục đích học tập.
+- Phân loại tự động danh mục/ưu tiên từ nội dung phiếu.
+- Định tuyến tự động theo nhóm – khu vực – tải công việc.
+- SLA theo giờ hành chính (tạm dừng khi chờ người dùng) và báo cáo tuân thủ.
+- Xuất báo cáo Excel/PDF và đánh giá hài lòng người dùng.

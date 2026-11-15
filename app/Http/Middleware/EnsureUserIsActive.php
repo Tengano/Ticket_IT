@@ -10,11 +10,11 @@ use Symfony\Component\HttpFoundation\Response;
 class EnsureUserIsActive
 {
     /**
-     * Chặn tài khoản đã bị vô hiệu hoá (is_active = false) truy cập hệ thống.
+     * Chặn tài khoản đã bị vô hiệu hoá (dang_hoat_dong = false) truy cập hệ thống.
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if ($request->user() !== null && ! $request->user()->is_active) {
+        if ($request->user() !== null && ! $request->user()->dang_hoat_dong) {
             Auth::guard('web')->logout();
             $request->session()->invalidate();
             $request->session()->regenerateToken();

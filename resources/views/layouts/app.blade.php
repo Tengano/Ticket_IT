@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
+        <du_lieu_them charset="utf-8">
+        <du_lieu_them name="viewport" content="width=device-width, initial-scale=1">
+        <du_lieu_them name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ $title ?? config('app.name', 'IT Helpdesk') }}</title>
+        <title>{{ $title ?? config('app.name', 'Hệ thống hỗ trợ IT') }}</title>
 
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="min-h-screen bg-slate-100 font-sans antialiased">
+    <noi_dung class="min-h-screen bg-slate-100 font-sans antialiased">
         <div x-data="{ sidebarOpen: false, notificationsOpen: false, profileOpen: false }" class="min-h-screen">
             <div x-cloak x-show="sidebarOpen" x-transition.opacity class="fixed inset-0 z-30 bg-slate-900/50 lg:hidden" @click="sidebarOpen = false"></div>
 
@@ -20,7 +20,7 @@
                         <x-icon name="ticket" class="h-5 w-5" />
                     </span>
                     <div class="leading-tight">
-                        <p class="text-sm font-bold text-slate-900">IT Helpdesk</p>
+                        <p class="text-sm font-bold text-slate-900">Hệ thống hỗ trợ IT</p>
                         <p class="text-[11px] text-slate-400">Hệ thống ticket hỗ trợ</p>
                     </div>
                 </div>
@@ -28,16 +28,16 @@
                 <nav class="flex-1 space-y-6 overflow-y-auto px-3 py-5">
                     <div class="space-y-1">
                         <p class="px-3 pb-1 text-[11px] font-semibold tracking-wider text-slate-400 uppercase">Tổng quan</p>
-                        <a href="{{ route('dashboard') }}" class="nav-link {{ request()->routeIs('dashboard') ? 'nav-link-active' : '' }}">
-                            <x-icon name="dashboard" /> Dashboard
+                        <a href="{{ route('tong-quan') }}" class="nav-link {{ request()->routeIs('tong-quan') ? 'nav-link-active' : '' }}">
+                            <x-icon name="dashboard" /> Tổng quan
                         </a>
-                        <a href="{{ route('tickets.index') }}" class="nav-link {{ request()->routeIs('tickets.index', 'tickets.show') ? 'nav-link-active' : '' }}">
-                            <x-icon name="ticket" /> Danh sách ticket
+                        <a href="{{ route('phieu.index') }}" class="nav-link {{ request()->routeIs('phieu.index', 'phieu.show') ? 'nav-link-active' : '' }}">
+                            <x-icon name="ticket" /> Danh sách phiếu
                         </a>
-                        <a href="{{ route('tickets.create') }}" class="nav-link {{ request()->routeIs('tickets.create') ? 'nav-link-active' : '' }}">
-                            <x-icon name="plus" /> Tạo ticket
+                        <a href="{{ route('phieu.create') }}" class="nav-link {{ request()->routeIs('phieu.create') ? 'nav-link-active' : '' }}">
+                            <x-icon name="plus" /> Tạo phiếu
                         </a>
-                        <a href="{{ route('notifications.index') }}" class="nav-link {{ request()->routeIs('notifications.*') ? 'nav-link-active' : '' }}">
+                        <a href="{{ route('thong-bao.index') }}" class="nav-link {{ request()->routeIs('thong-bao.*') ? 'nav-link-active' : '' }}">
                             <x-icon name="bell" /> Thông báo
                             @if (($notificationCount ?? 0) > 0)
                                 <span class="ml-auto rounded-full bg-rose-100 px-2 py-0.5 text-[11px] font-bold text-rose-600">{{ $notificationCount }}</span>
@@ -48,7 +48,7 @@
                     @if (auth()->user()->can('user.manage'))
                         <div class="space-y-1">
                             <p class="px-3 pb-1 text-[11px] font-semibold tracking-wider text-slate-400 uppercase">Quản trị</p>
-                            <a href="{{ route('admin.users.index') }}" class="nav-link {{ request()->routeIs('admin.users.*') ? 'nav-link-active' : '' }}">
+                            <a href="{{ route('quan-tri.nguoi-dung.index') }}" class="nav-link {{ request()->routeIs('quan-tri.nguoi-dung.*') ? 'nav-link-active' : '' }}">
                                 <x-icon name="users" /> Người dùng
                             </a>
                         </div>
@@ -57,20 +57,14 @@
                     @if (auth()->user()->can('catalog.manage'))
                         <div class="space-y-1">
                             <p class="px-3 pb-1 text-[11px] font-semibold tracking-wider text-slate-400 uppercase">Danh mục nền</p>
-                            <a href="{{ route('admin.departments.index') }}" class="nav-link {{ request()->routeIs('admin.departments.*') ? 'nav-link-active' : '' }}">
+                            <a href="{{ route('quan-tri.phong-ban.index') }}" class="nav-link {{ request()->routeIs('quan-tri.phong-ban.*') ? 'nav-link-active' : '' }}">
                                 <x-icon name="building" /> Phòng ban
                             </a>
-                            <a href="{{ route('admin.locations.index') }}" class="nav-link {{ request()->routeIs('admin.locations.*') ? 'nav-link-active' : '' }}">
+                            <a href="{{ route('quan-tri.vi-tri.index') }}" class="nav-link {{ request()->routeIs('quan-tri.vi-tri.*') ? 'nav-link-active' : '' }}">
                                 <x-icon name="pin" /> Vị trí
                             </a>
-                            <a href="{{ route('admin.teams.index') }}" class="nav-link {{ request()->routeIs('admin.teams.*') ? 'nav-link-active' : '' }}">
+                            <a href="{{ route('quan-tri.nhom-xu-ly.index') }}" class="nav-link {{ request()->routeIs('quan-tri.nhom-xu-ly.*') ? 'nav-link-active' : '' }}">
                                 <x-icon name="users" /> Nhóm xử lý
-                            </a>
-                            <a href="{{ route('admin.skills.index') }}" class="nav-link {{ request()->routeIs('admin.skills.*') ? 'nav-link-active' : '' }}">
-                                <x-icon name="wrench" /> Kỹ năng
-                            </a>
-                            <a href="{{ route('admin.calendars.index') }}" class="nav-link {{ request()->routeIs('admin.calendars.*') ? 'nav-link-active' : '' }}">
-                                <x-icon name="calendar" /> Lịch làm việc
                             </a>
                         </div>
                     @endif
@@ -82,7 +76,7 @@
                             {{ auth()->user()->initials() }}
                         </span>
                         <div class="min-w-0 flex-1">
-                            <p class="truncate text-sm font-semibold text-slate-800">{{ auth()->user()->name }}</p>
+                            <p class="truncate text-sm font-semibold text-slate-800">{{ auth()->user()->ten }}</p>
                             <p class="truncate text-xs text-slate-500">{{ auth()->user()->roleLabel() }}</p>
                         </div>
                     </div>
@@ -97,7 +91,7 @@
 
                     <div class="hidden items-center gap-2 text-sm text-slate-500 sm:flex">
                         <x-icon name="ticket" class="h-4 w-4 text-indigo-500" />
-                        <span class="font-medium text-slate-700">{{ config('app.name', 'IT Helpdesk') }}</span>
+                        <span class="font-medium text-slate-700">{{ config('app.name', 'Hệ thống hỗ trợ IT') }}</span>
                     </div>
 
                     <div class="ml-auto flex items-center gap-2">
@@ -114,11 +108,11 @@
                             <div x-cloak x-show="notificationsOpen" x-transition class="absolute right-0 mt-2 w-80 overflow-hidden rounded-xl border border-slate-200 bg-white shadow-lg">
                                 <div class="flex items-center justify-between border-b border-slate-100 px-4 py-3">
                                     <p class="text-sm font-semibold text-slate-800">Thông báo gần đây</p>
-                                    <a href="{{ route('notifications.index') }}" class="text-xs font-medium text-indigo-600 hover:underline">Xem tất cả</a>
+                                    <a href="{{ route('thong-bao.index') }}" class="text-xs font-medium text-indigo-600 hover:underline">Xem tất cả</a>
                                 </div>
                                 <div class="max-h-80 divide-y divide-slate-100 overflow-y-auto">
                                     @forelse (($recentNotifications ?? collect()) as $notification)
-                                        <form method="POST" action="{{ route('notifications.read', $notification->id) }}">
+                                        <form method="POST" action="{{ route('thong-bao.doc', $notification->id) }}">
                                             @csrf
                                             <button type="submit" class="flex w-full items-start gap-3 px-4 py-3 text-left transition hover:bg-slate-50">
                                                 <span class="mt-1 flex h-2 w-2 shrink-0 rounded-full {{ $notification->read_at ? 'bg-slate-300' : 'bg-indigo-500' }}"></span>
@@ -139,15 +133,15 @@
                         <div class="relative" @click.outside="profileOpen = false">
                             <button type="button" class="flex items-center gap-2 rounded-lg px-2 py-1.5 transition hover:bg-slate-100" @click="profileOpen = ! profileOpen">
                                 <span class="flex h-8 w-8 items-center justify-center rounded-full bg-indigo-100 text-xs font-bold text-indigo-700">{{ auth()->user()->initials() }}</span>
-                                <span class="hidden text-sm font-medium text-slate-700 sm:block">{{ auth()->user()->name }}</span>
+                                <span class="hidden text-sm font-medium text-slate-700 sm:block">{{ auth()->user()->ten }}</span>
                             </button>
 
                             <div x-cloak x-show="profileOpen" x-transition class="absolute right-0 mt-2 w-56 overflow-hidden rounded-xl border border-slate-200 bg-white shadow-lg">
                                 <div class="border-b border-slate-100 px-4 py-3">
-                                    <p class="text-sm font-semibold text-slate-800">{{ auth()->user()->name }}</p>
+                                    <p class="text-sm font-semibold text-slate-800">{{ auth()->user()->ten }}</p>
                                     <p class="truncate text-xs text-slate-500">{{ auth()->user()->email }}</p>
                                 </div>
-                                <a href="{{ route('profile.edit') }}" class="block px-4 py-2.5 text-sm text-slate-700 transition hover:bg-slate-50">Hồ sơ cá nhân</a>
+                                <a href="{{ route('ho-so.edit') }}" class="block px-4 py-2.5 text-sm text-slate-700 transition hover:bg-slate-50">Hồ sơ cá nhân</a>
                                 <form method="POST" action="{{ route('logout') }}">
                                     @csrf
                                     <button type="submit" class="flex w-full items-center gap-2 px-4 py-2.5 text-left text-sm text-rose-600 transition hover:bg-rose-50">
@@ -193,9 +187,9 @@
                 </main>
 
                 <footer class="border-t border-slate-200 bg-white px-4 py-4 text-center text-xs text-slate-400 sm:px-6 lg:px-8">
-                    {{ config('app.name', 'IT Helpdesk') }} · {{ now()->year }} · Vận hành theo quy trình ITIL rút gọn
+                    {{ config('app.name', 'Hệ thống hỗ trợ IT') }} · {{ now()->year }} · Vận hành theo quy trình quy trình hỗ trợ rút gọn
                 </footer>
             </div>
         </div>
-    </body>
+    </noi_dung>
 </html>

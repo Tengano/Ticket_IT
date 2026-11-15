@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
+        <du_lieu_them charset="utf-8">
+        <du_lieu_them name="viewport" content="width=device-width, initial-scale=1">
+        <du_lieu_them name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ $title ?? config('app.name', 'IT Helpdesk') }}</title>
+        <title>{{ $title ?? config('app.name', 'Hệ thống hỗ trợ IT') }}</title>
 
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="min-h-screen bg-slate-100 font-sans antialiased">
+    <noi_dung class="min-h-screen bg-slate-100 font-sans antialiased">
         <div class="grid min-h-screen lg:grid-cols-2">
             <section class="relative hidden flex-col justify-between overflow-hidden bg-gradient-to-br from-indigo-700 via-indigo-800 to-slate-900 p-10 text-white lg:flex">
                 <div class="absolute -top-24 -right-24 h-72 w-72 rounded-full bg-indigo-500/30 blur-3xl"></div>
@@ -21,7 +21,7 @@
                             <x-icon name="ticket" class="h-6 w-6" />
                         </span>
                         <div>
-                            <p class="text-base font-bold">IT Helpdesk</p>
+                            <p class="text-base font-bold">Hệ thống hỗ trợ IT</p>
                             <p class="text-xs text-indigo-200">Hệ thống ticket hỗ trợ nội bộ</p>
                         </div>
                     </div>
@@ -49,7 +49,7 @@
                     </ul>
                 </div>
 
-                <p class="relative text-xs text-indigo-300">© {{ now()->year }} IT Helpdesk · Vận hành theo ITIL rút gọn</p>
+                <p class="relative text-xs text-indigo-300">© {{ now()->year }} Hệ thống hỗ trợ IT · Vận hành theo quy trình hỗ trợ rút gọn</p>
             </section>
 
             <section class="flex items-center justify-center px-4 py-10 sm:px-8">
@@ -59,7 +59,7 @@
                             <x-icon name="ticket" class="h-5 w-5" />
                         </span>
                         <div>
-                            <p class="text-sm font-bold text-slate-900">IT Helpdesk</p>
+                            <p class="text-sm font-bold text-slate-900">Hệ thống hỗ trợ IT</p>
                             <p class="text-xs text-slate-500">Hệ thống ticket hỗ trợ</p>
                         </div>
                     </div>
@@ -69,10 +69,10 @@
                     </div>
 
                     <p class="mt-6 text-center text-xs text-slate-400">
-                        {{ config('app.name', 'IT Helpdesk') }} · Hỗ trợ kỹ thuật nội bộ
+                        {{ config('app.name', 'Hệ thống hỗ trợ IT') }} · Hỗ trợ kỹ thuật nội bộ
                     </p>
                 </div>
             </section>
         </div>
-    </body>
+    </noi_dung>
 </html>
