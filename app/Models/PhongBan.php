@@ -2,18 +2,13 @@
 
 namespace App\Models;
 
-use Database\Factories\PhongBanFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 #[Fillable(['ma', 'ten', 'mo_ta', 'dang_hoat_dong'])]
 class PhongBan extends Model
 {
-    /** @use HasFactory<PhongBanFactory> */
-    use HasFactory;
-
     protected $table = 'phong_ban';
 
     /**

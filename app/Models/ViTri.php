@@ -2,18 +2,13 @@
 
 namespace App\Models;
 
-use Database\Factories\ViTriFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 #[Fillable(['ten', 'toa_nha', 'tang', 'khu_vuc', 'mo_ta', 'dang_hoat_dong'])]
 class ViTri extends Model
 {
-    /** @use HasFactory<ViTriFactory> */
-    use HasFactory;
-
     protected $table = 'vi_tri';
 
     /**

@@ -3,9 +3,7 @@
 namespace App\Models;
 
 use App\Enums\LoaiBinhLuan;
-use Database\Factories\BinhLuanPhieuFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -13,9 +11,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 #[Fillable(['phieu_yeu_cau_id', 'nguoi_dung_id', 'noi_dung', 'loai', 'la_phan_hoi_dau'])]
 class BinhLuanPhieu extends Model
 {
-    /** @use HasFactory<BinhLuanPhieuFactory> */
-    use HasFactory;
-
     protected $table = 'binh_luan_phieu';
 
     /**

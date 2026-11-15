@@ -80,7 +80,7 @@
                                         <a href="{{ route('quan-tri.nguoi-dung.edit', $member) }}" class="btn-secondary px-3 py-1.5 text-xs">Sửa</a>
 
                                         @unless (auth()->user()->is($member))
-                                            <form method="POST" action="{{ route('quan-tri.nguoi-dung.toggle', $member) }}">
+                                            <form method="POST" action="{{ route('quan-tri.nguoi-dung.kich-hoat', $member) }}">
                                                 @csrf
                                                 <button type="submit" class="text-xs font-medium {{ $member->dang_hoat_dong ? 'text-rose-600 hover:text-rose-700' : 'text-emerald-600 hover:text-emerald-700' }}">
                                                     {{ $member->dang_hoat_dong ? 'Vô hiệu hoá' : 'Kích hoạt' }}

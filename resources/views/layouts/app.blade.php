@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
-        <du_lieu_them charset="utf-8">
-        <du_lieu_them name="viewport" content="width=device-width, initial-scale=1">
-        <du_lieu_them name="csrf-token" content="{{ csrf_token() }}">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <title>{{ $title ?? config('app.name', 'Hệ thống hỗ trợ IT') }}</title>
 
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <noi_dung class="min-h-screen bg-slate-100 font-sans antialiased">
+    <body class="min-h-screen bg-slate-100 font-sans antialiased">
         <div x-data="{ sidebarOpen: false, notificationsOpen: false, profileOpen: false }" class="min-h-screen">
             <div x-cloak x-show="sidebarOpen" x-transition.opacity class="fixed inset-0 z-30 bg-slate-900/50 lg:hidden" @click="sidebarOpen = false"></div>
 
@@ -191,5 +191,5 @@
                 </footer>
             </div>
         </div>
-    </noi_dung>
+    </body>
 </html>

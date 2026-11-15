@@ -5,18 +5,13 @@ namespace App\Models;
 use App\Enums\LoaiSuKienPhieu;
 use App\Enums\TrangThaiPhieu;
 use App\Enums\UuTienPhieu;
-use Database\Factories\SuKienPhieuFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 #[Fillable(['phieu_yeu_cau_id', 'nguoi_thuc_hien_id', 'loai', 'tu_gia_tri', 'den_gia_tri', 'du_lieu_them'])]
 class SuKienPhieu extends Model
 {
-    /** @use HasFactory<SuKienPhieuFactory> */
-    use HasFactory;
-
     protected $table = 'su_kien_phieu';
 
     /**

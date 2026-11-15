@@ -4,6 +4,8 @@
 Người dùng gửi **phiếu yêu cầu** qua web; kỹ thuật viên tiếp nhận, trao đổi, ghi chú nội bộ và cập nhật trạng thái;
 quản trị viên cấu hình vai trò, nhóm xử lý và danh mục nền.
 
+> 📄 **Báo cáo đồ án chi tiết:** [BaoCao.md](BaoCao.md)
+
 > Toàn bộ mã nguồn, tên bảng/cột cơ sở dữ liệu và tên tệp đã được Việt hoá để dễ đọc, dễ bảo vệ đồ án.
 > Các thành phần hạ tầng của framework (bảng `sessions`, `cache`, `jobs`, `notifications`, bảng phân quyền của Spatie,
 > route xác thực `login`/`register`...) được giữ nguyên tên gốc.
@@ -12,7 +14,6 @@ quản trị viên cấu hình vai trò, nhóm xử lý và danh mục nền.
 ![PHP](https://img.shields.io/badge/PHP-8.3-777BB4?logo=php&logoColor=white)
 ![MySQL](https://img.shields.io/badge/MySQL-8.4-4479A1?logo=mysql&logoColor=white)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4.3-06B6D4?logo=tailwindcss&logoColor=white)
-![Tests](https://img.shields.io/badge/tests-79%20passed-brightgreen)
 
 ---
 
@@ -55,7 +56,6 @@ quản trị viên cấu hình vai trò, nhóm xử lý và danh mục nền.
 | Giao diện | Blade, Tailwind CSS 4.3, Alpine.js 3.17, Vite 8 |
 | Xác thực | Laravel Breeze 2.4 (Blade) |
 | Phân quyền | spatie/laravel-permission 8.3 |
-| Kiểm thử | PHPUnit 12.5 (`php artisan test`) |
 | Code style | Laravel Pint |
 | Hàng đợi / cache / phiên | Driver `database` |
 | Email dev | Mailpit (`127.0.0.1:1025`, UI `:8025`) |
@@ -196,10 +196,9 @@ Tài khoản tạo qua trang **Đăng ký** mặc định nhận vai trò `reque
 
 ---
 
-## 🧪 Kiểm thử & chất lượng mã nguồn
+## 🧹 Chất lượng mã nguồn
 
 ```bash
-php artisan test          # 79 test (Unit + Feature)
 vendor/bin/pint           # định dạng mã nguồn theo chuẩn Laravel
 php artisan route:list    # danh sách route tiếng Việt
 ```
