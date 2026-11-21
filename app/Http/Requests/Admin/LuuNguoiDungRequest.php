@@ -29,7 +29,6 @@ class LuuNguoiDungRequest extends FormRequest
             'team_ids' => ['nullable', 'array'],
             'team_ids.*' => [Rule::exists('nhom_xu_ly', 'id')],
             'dang_hoat_dong' => ['boolean'],
-            'la_vip' => ['boolean'],
         ];
     }
 
@@ -37,7 +36,6 @@ class LuuNguoiDungRequest extends FormRequest
     {
         $this->merge([
             'dang_hoat_dong' => $this->boolean('dang_hoat_dong'),
-            'la_vip' => $this->boolean('la_vip'),
         ]);
     }
 

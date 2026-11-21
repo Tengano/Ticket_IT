@@ -21,7 +21,6 @@ return new class extends Migration
             $table->unsignedBigInteger('phong_ban_id')->nullable()->index();
             $table->unsignedBigInteger('vi_tri_id')->nullable()->index();
             $table->boolean('dang_hoat_dong')->default(true);
-            $table->boolean('la_vip')->default(false);
             $table->string('anh_dai_dien')->nullable();
             $table->timestamp('phan_cong_gan_nhat_luc')->nullable();
             $table->rememberToken();

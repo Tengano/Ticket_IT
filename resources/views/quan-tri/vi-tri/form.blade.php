@@ -10,28 +10,10 @@
             @method('PUT')
         @endif
 
-        <div class="grid gap-4 sm:grid-cols-2">
-            <div class="sm:col-span-2">
-                <label for="ten" class="field-label">Tên vị trí <span class="text-rose-500">*</span></label>
-                <input id="ten" name="ten" value="{{ old('ten', $location->ten) }}" required class="field" placeholder="VD: Phòng 305">
-                <x-input-error :messages="$errors->get('name')" class="field-error" />
-            </div>
-            <div>
-                <label for="toa_nha" class="field-label">Tòa nhà</label>
-                <input id="toa_nha" name="toa_nha" value="{{ old('toa_nha', $location->toa_nha) }}" class="field" placeholder="VD: Tòa A">
-            </div>
-            <div>
-                <label for="tang" class="field-label">Tầng</label>
-                <input id="tang" name="tang" value="{{ old('tang', $location->tang) }}" class="field" placeholder="VD: Tầng 3">
-            </div>
-            <div>
-                <label for="khu_vuc" class="field-label">Khu vực</label>
-                <input id="khu_vuc" name="khu_vuc" value="{{ old('khu_vuc', $location->khu_vuc) }}" class="field" placeholder="VD: Khu A">
-            </div>
-            <div class="sm:col-span-2">
-                <label for="mo_ta" class="field-label">Mô tả</label>
-                <input id="mo_ta" name="mo_ta" value="{{ old('mo_ta', $location->mo_ta) }}" class="field">
-            </div>
+        <div>
+            <label for="ten" class="field-label">Tên vị trí <span class="text-rose-500">*</span></label>
+            <input id="ten" name="ten" value="{{ old('ten', $location->ten) }}" required class="field" placeholder="VD: Phòng 305">
+            <x-input-error :messages="$errors->get('name')" class="field-error" />
         </div>
 
         <label class="flex items-center gap-2 text-sm text-slate-700">

@@ -64,8 +64,7 @@ Báo cáo được chia thành ba chương chính:
 - **Chương 1 – Mô tả bài toán:** trình bày bối cảnh, thực trạng, mục tiêu, phạm vi, các hệ thống tham khảo và yêu cầu của hệ thống mới.
 - **Chương 2 – Phân tích và thiết kế hệ thống:** xác định tác nhân, ca sử dụng, thiết kế dữ liệu, kiến trúc, quy trình nghiệp vụ, giao diện và bảo mật.
 - **Chương 3 – Xây dựng hệ thống:** mô tả môi trường phát triển, các chức năng đã hiện thực, giao diện, kiểm thử, kết quả đạt được và hạn chế.
-
-Ngoài ba chương, báo cáo còn có phần **Kết luận và hướng phát triển**, **Tài liệu tham khảo** và **Phụ lục** nhằm cung cấp đầy đủ thông tin cài đặt, tài khoản demo, danh sách route, cấu trúc thư mục và checklist kiểm thử.
+ 
 
 ## LỜI CẢM ƠN
 
@@ -119,7 +118,7 @@ Chúng em xin chân thành cảm ơn!
 | Bảng 2.4 | Đặc tả ca sử dụng phân công và xử lý phiếu |
 | Bảng 2.5 | Từ điển dữ liệu bảng `nguoi_dung` |
 | Bảng 2.6 | Từ điển dữ liệu bảng `phieu_yeu_cau` |
-| Bảng 2.7 | Từ điển dữ liệu các bảng nghiệp vụ còn lại |
+| Bảng 2.7.1 – 2.7.16 | Từ điển dữ liệu chi tiết các bảng nghiệp vụ còn lại |
 | Bảng 2.8 | Thành phần và trách nhiệm trong kiến trúc |
 | Bảng 2.9 | Quy tắc chuyển trạng thái phiếu |
 | Bảng 2.10 | Ma trận Ảnh hưởng × Khẩn cấp → Mức ưu tiên |
@@ -450,8 +449,8 @@ Bảng 1.2 liệt kê các yêu cầu chức năng của hệ thống, mã hóa 
 
 Hệ thống cần quản lý các nhóm dữ liệu sau:
 
-- **Dữ liệu người dùng:** họ tên, email, mật khẩu đã hash, điện thoại, phòng ban, vị trí, trạng thái hoạt động, cờ VIP, vai trò.
-- **Dữ liệu tổ chức:** phòng ban, vị trí/tòa nhà/tầng/khu vực, nhóm xử lý, thành viên nhóm, trưởng nhóm, định mức.
+- **Dữ liệu người dùng:** họ tên, email, mật khẩu đã hash, điện thoại, phòng ban, vị trí, trạng thái hoạt động, vai trò.
+- **Dữ liệu tổ chức:** phòng ban, vị trí/phòng làm việc, nhóm xử lý, thành viên nhóm, trưởng nhóm, định mức.
 - **Dữ liệu danh mục:** danh mục sự cố hai cấp, nhóm mặc định, mức ưu tiên mặc định, trạng thái hoạt động.
 - **Dữ liệu phiếu:** mã phiếu, tiêu đề, mô tả, người yêu cầu, người xử lý, nhóm, danh mục, trạng thái, ưu tiên, ảnh hưởng, khẩn cấp, các mốc thời gian, số lần mở lại, điểm hài lòng (dự phòng).
 - **Dữ liệu trao đổi:** bình luận công khai, ghi chú nội bộ, tệp đính kèm, người tải lên, thời điểm.
@@ -505,7 +504,7 @@ Tác nhân là người hoặc hệ thống tương tác với hệ thống đ�
 
 Hình 2.1 mô tả các ca sử dụng chính của hệ thống và mối liên hệ với các tác nhân. Sơ đồ được biểu diễn bằng Mermaid theo hướng gần đúng với biểu đồ ca sử dụng UML.
 
-**Hình 2.1. Biểu đồ ca sử dụng tổng quát của hệ thống**
+**  **
 
 ```mermaid
 flowchart LR
@@ -633,7 +632,7 @@ Trong phần này, nhóm đặc tả chi tiết hai ca sử dụng quan trọng 
 | **Luồng chính** | 1. Staff mở trang chi tiết phiếu.<br>2. Hệ thống hiển thị form **Phân công** và **Cập nhật xử lý** nếu có quyền.<br>3. Staff chọn nhóm xử lý và/hoặc kỹ thuật viên.<br>4. Hệ thống cập nhật `nhom_xu_ly_id`, `nguoi_xu_ly_id`; nếu là lần phân công đầu tiên, ghi `phan_cong_luc` và chuyển trạng thái sang `da_phan_cong`.<br>5. Staff chọn trạng thái mới trong danh sách trạng thái được phép chuyển.<br>6. Hệ thống kiểm tra quy tắc chuyển trạng thái; cập nhật trạng thái, các mốc thời gian và số lần mở lại nếu có.<br>7. Hệ thống ghi sự kiện `phan_cong`, `doi_trang_thai`, `dong_phieu`/`mo_lai` tương ứng.<br>8. Hệ thống gửi thông báo cho người được phân công, người yêu cầu và nhóm liên quan.<br>9. Hệ thống quay lại trang chi tiết với thông báo thành công. |
 | **Luồng thay thế** | 3a. Chỉ đổi nhóm, không đổi người xử lý → phiếu chuyển sang nhóm mới.<br>3b. Chỉ đổi người xử lý → giữ nguyên nhóm hiện tại.<br>5a. Không chọn trạng thái mới → chỉ cập nhật phân công.<br>5b. Staff đổi mức ưu tiên → hệ thống ghi sự kiện `doi_uu_tien`. |
 | **Luồng ngoại lệ** | 4a. Người xử lý không hoạt động → validation từ chối.<br>6a. Chuyển trạng thái không hợp lệ (ví dụ `da_dong` → `dang_xu_ly`) → trả lỗi và không cập nhật.<br>6b. Người không có quyền → HTTP 403.<br>8a. Gửi thông báo lỗi → ghi log, không ảnh hưởng giao dịch. |
-| **Quy tắc nghiệp vụ** | Chỉ chuyển trạng thái theo máy trạng thái; trạng thái `da_phan_cong` trở đi yêu cầu có người xử lý; khi giải quyết ghi `giai_quyet_luc`; khi đóng ghi `dong_luc`; khi mở lại tăng `so_lan_mo_lai` và xóa mốc giải quyết/đóng. |
+| **Quy tắc nghiệp vụ** | Chỉ chuyển trạng thái theo máy trạng thái; trạng thái `da_phan_cong` trở đi yêu cầu có người xử lý; khi giải quyết ghi `giai_quyet_luc`; khi đóng ghi `dong_luc`; khi mở lại xóa mốc giải quyết/đóng và ghi sự kiện `mo_lai`. |
 
 ## 2.2. Thiết kế dữ liệu
 
@@ -647,7 +646,7 @@ Hình 2.2 mô tả sơ đồ thực thể – liên kết của các bảng nghi
 
 ```mermaid
 erDiagram
-    PHONG_BAN ||--o{ NGUOI_DUNG : "thuộc"
+    PHONG_BAN ||--o{ NG UOI_DUNG : "thuộc"
     VI_TRI ||--o{ NGUOI_DUNG : "làm việc tại"
     PHONG_BAN ||--o{ PHIEU_YEU_CAU : "của phòng ban"
     VI_TRI ||--o{ PHIEU_YEU_CAU : "xảy ra tại"
@@ -681,7 +680,6 @@ erDiagram
         bigint phong_ban_id FK
         bigint vi_tri_id FK
         boolean dang_hoat_dong
-        boolean la_vip
         timestamp email_verified_at
         timestamp phan_cong_gan_nhat_luc
         timestamps created_at_updated_at
@@ -691,17 +689,12 @@ erDiagram
         bigint id PK
         string ma UK
         string ten
-        string mo_ta
         boolean dang_hoat_dong
     }
 
     VI_TRI {
         bigint id PK
         string ten
-        string toa_nha
-        string tang
-        string khu_vuc
-        string mo_ta
         boolean dang_hoat_dong
     }
 
@@ -754,11 +747,6 @@ erDiagram
         timestamp phan_hoi_dau_luc
         timestamp giai_quyet_luc
         timestamp dong_luc
-        int phut_xu_ly
-        int phut_cho
-        int phut_tam_dung
-        int so_lan_mo_lai
-        int diem_hai_long
     }
 
     BINH_LUAN_PHIEU {
@@ -801,7 +789,6 @@ erDiagram
         string ly_do
         timestamp bat_dau_luc
         timestamp ket_thuc_luc
-        int so_phut
     }
 
     NGUOI_THEO_DOI {
@@ -826,7 +813,6 @@ erDiagram
 | `phong_ban_id` | bigint unsigned | FK → `phong_ban.id`, NULL, ON DELETE SET NULL | Phòng ban của người dùng |
 | `vi_tri_id` | bigint unsigned | FK → `vi_tri.id`, NULL, ON DELETE SET NULL | Vị trí làm việc |
 | `dang_hoat_dong` | boolean | DEFAULT true | Trạng thái hoạt động |
-| `la_vip` | boolean | DEFAULT false | Người dùng VIP, ưu tiên xử lý |
 | `anh_dai_dien` | varchar(255) | NULL | Đường dẫn ảnh đại diện (dự phòng) |
 | `phan_cong_gan_nhat_luc` | timestamp | NULL | Lần phân công gần nhất |
 | `remember_token` | varchar(100) | NULL | Token ghi nhớ đăng nhập |
@@ -855,30 +841,235 @@ erDiagram
 | `phan_hoi_dau_luc` | timestamp | NULL | Thời điểm phản hồi công khai đầu tiên của staff |
 | `giai_quyet_luc` | timestamp | NULL | Thời điểm giải quyết |
 | `dong_luc` | timestamp | NULL | Thời điểm đóng phiếu |
-| `phut_xu_ly` | int unsigned | DEFAULT 0 | Tổng phút xử lý (tính khi giải quyết) |
-| `phut_cho` | int unsigned | DEFAULT 0 | Tổng phút chờ (dự phòng) |
-| `phut_tam_dung` | int unsigned | DEFAULT 0 | Tổng phút tạm dừng (dự phòng) |
-| `so_lan_mo_lai` | tinyint unsigned | DEFAULT 0 | Số lần mở lại |
-| `diem_hai_long` | tinyint unsigned | NULL | Điểm hài lòng 1–5 (dự phòng) |
 | `created_at`, `updated_at` | timestamp | NULL | Thời điểm tạo/cập nhật |
 | Index | — | `(nguoi_yeu_cau_id, trang_thai)`, `(nguoi_xu_ly_id, trang_thai)`, `(nhom_xu_ly_id, trang_thai)`, `created_at` | Tối ưu truy vấn danh sách/lọc |
 
 **Bảng 2.7. Từ điển dữ liệu các bảng nghiệp vụ còn lại**
 
-| Bảng | Các cột chính | Ràng buộc / mô tả |
-|---|---|---|
-| `phong_ban` | `id`, `ma`, `ten`, `mo_ta`, `dang_hoat_dong`, timestamps | `ma` UNIQUE; dùng để phân loại người dùng và phiếu theo đơn vị |
-| `vi_tri` | `id`, `ten`, `toa_nha`, `tang`, `khu_vuc`, `mo_ta`, `dang_hoat_dong`, timestamps | `khu_vuc` có index; lưu vị trí vật lý để IT đến hỗ trợ |
-| `nhom_xu_ly` | `id`, `ma`, `ten`, `mo_ta`, `truong_nhom_id`, `chien_luoc_phan_cong`, `dinh_muc`, `dang_hoat_dong`, timestamps | `ma` UNIQUE; `truong_nhom_id` FK → `nguoi_dung`, SET NULL; chiến lược mặc định `khop_ky_nang` |
-| `nhom_xu_ly_nguoi_dung` | `nhom_xu_ly_id`, `nguoi_dung_id`, `la_truong_nhom`, `dinh_muc`, timestamps | Khóa chính tổ hợp; FK CASCADE; lưu thành viên nhóm và cờ trưởng nhóm |
-| `danh_muc` | `id`, `danh_muc_cha_id`, `ma`, `ten`, `mo_ta`, `nhom_mac_dinh_id`, `uu_tien_mac_dinh`, `dang_hoat_dong`, timestamps | `ma` UNIQUE; tự tham chiếu cha–con; `nhom_mac_dinh_id` FK → `nhom_xu_ly`; index `(danh_muc_cha_id, dang_hoat_dong)` |
-| `binh_luan_phieu` | `id`, `phieu_yeu_cau_id`, `nguoi_dung_id`, `noi_dung`, `loai`, `la_phan_hoi_dau`, timestamps | FK CASCADE; `loai` = `cong_khai` hoặc `noi_bo`; index `(phieu_yeu_cau_id, created_at)` |
-| `tep_dinh_kem` | `id`, `phieu_yeu_cau_id`, `binh_luan_id`, `nguoi_tai_len_id`, `disk`, `duong_dan`, `ten_goc`, `dinh_dang`, `kich_thuoc`, timestamps | FK CASCADE với phiếu/bình luận; người tải lên SET NULL; tệp lưu ngoài CSDL |
-| `su_kien_phieu` | `id`, `phieu_yeu_cau_id`, `nguoi_thuc_hien_id`, `loai`, `tu_gia_tri`, `den_gia_tri`, `du_lieu_them`, timestamps | FK CASCADE; `du_lieu_them` kiểu JSON; index `(phieu_yeu_cau_id, created_at)` và `loai` |
-| `lich_su_trang_thai` | `id`, `phieu_yeu_cau_id`, `trang_thai_truoc`, `trang_thai_sau`, `nguoi_thuc_hien_id`, `ly_do`, `bat_dau_luc`, `ket_thuc_luc`, `so_phut`, timestamps | FK CASCADE; lưu khoảng thời gian của từng trạng thái để tính thời gian xử lý |
-| `nguoi_theo_doi` | `id`, `phieu_yeu_cau_id`, `nguoi_dung_id`, timestamps | UNIQUE `(phieu_yeu_cau_id, nguoi_dung_id)`; FK CASCADE |
-| `notifications` | `id` (uuid), `type`, `notifiable_type`, `notifiable_id`, `data` (text), `read_at`, timestamps | Bảng chuẩn Laravel; lưu thông báo database cho người dùng |
-| `roles`, `permissions`, `model_has_roles`, `role_has_permissions` | `id`, `name`, `guard_name`, các khóa ngoại | Bảng của Spatie Permission; 4 vai trò, 12 quyền |
+Các bảng còn lại được trình bày chi tiết theo cùng cấu trúc với Bảng 2.5 và Bảng 2.6, gồm bốn cột: tên cột, kiểu dữ liệu, ràng buộc và mô tả nghiệp vụ. Mỗi bảng con 2.7.x tương ứng với một bảng thực tế trong cơ sở dữ liệu `ticket_it`.
+
+**Bảng 2.7.1. Từ điển dữ liệu bảng `phong_ban`**
+
+| Cột | Kiểu dữ liệu | Ràng buộc | Mô tả |
+|---|---|---|---|
+| `id` | bigint unsigned | PK, auto increment | Khóa chính |
+| `ma` | varchar(32) | NOT NULL, UNIQUE | Mã phòng ban, ví dụ `CNTT`, `HCNS`; dùng để phân loại người dùng và phiếu theo đơn vị |
+| `ten` | varchar(255) | NOT NULL | Tên phòng ban/đơn vị |
+| `dang_hoat_dong` | boolean | DEFAULT true | Trạng thái hoạt động; chỉ phòng ban đang hoạt động mới được chọn khi tạo người dùng/phiếu |
+| `created_at`, `updated_at` | timestamp | NULL | Thời điểm tạo/cập nhật bản ghi |
+| Index | — | PK(`id`), UNIQUE(`ma`) | Tối ưu tra cứu theo mã phòng ban |
+
+Quan hệ: một phòng ban có nhiều người dùng (`nguoi_dung.phong_ban_id`) và nhiều phiếu (`phieu_yeu_cau.phong_ban_id`).
+
+**Bảng 2.7.2. Từ điển dữ liệu bảng `vi_tri`**
+
+| Cột | Kiểu dữ liệu | Ràng buộc | Mô tả |
+|---|---|---|---|
+| `id` | bigint unsigned | PK, auto increment | Khóa chính |
+| `ten` | varchar(255) | NOT NULL | Tên vị trí cụ thể, ví dụ `Phòng 305`, `Phòng Lab 1` |
+| `dang_hoat_dong` | boolean | DEFAULT true | Trạng thái hoạt động |
+| `created_at`, `updated_at` | timestamp | NULL | Thời điểm tạo/cập nhật bản ghi |
+| Index | — | PK(`id`) | Tối ưu tra cứu theo khóa chính |
+
+Quan hệ: một vị trí có nhiều người dùng (`nguoi_dung.vi_tri_id`) và nhiều phiếu (`phieu_yeu_cau.vi_tri_id`). Hàm `fullName()` trả về tên vị trí để hiển thị.
+
+**Bảng 2.7.3. Từ điển dữ liệu bảng `nhom_xu_ly`**
+
+| Cột | Kiểu dữ liệu | Ràng buộc | Mô tả |
+|---|---|---|---|
+| `id` | bigint unsigned | PK, auto increment | Khóa chính |
+| `ma` | varchar(32) | NOT NULL, UNIQUE | Mã nhóm xử lý |
+| `ten` | varchar(255) | NOT NULL | Tên nhóm kỹ thuật viên |
+| `mo_ta` | varchar(255) | NULL | Mô tả lĩnh vực phụ trách |
+| `truong_nhom_id` | bigint unsigned | NULL, FK → `nguoi_dung.id`, ON DELETE SET NULL | Trưởng nhóm |
+| `chien_luoc_phan_cong` | varchar(32) | DEFAULT `khop_ky_nang` | Chiến lược phân công: `khop_ky_nang` (luân chuyển theo tải công việc), `it_viec_nhat` (ít việc nhất), `xoay_vong` (xoay vòng) |
+| `dinh_muc` | smallint unsigned | DEFAULT 20 | Định mức phiếu/người, kiểm tra trong khoảng 1–500 |
+| `dang_hoat_dong` | boolean | DEFAULT true | Trạng thái hoạt động |
+| `created_at`, `updated_at` | timestamp | NULL | Thời điểm tạo/cập nhật bản ghi |
+| Index | — | PK(`id`), UNIQUE(`ma`), INDEX(`truong_nhom_id`) | Tối ưu tra cứu nhóm và trưởng nhóm |
+
+Quan hệ: trưởng nhóm (`lead`), thành viên (n-n qua `nhom_xu_ly_nguoi_dung`), phiếu (`tickets`), danh mục mặc định (`categories`).
+
+**Bảng 2.7.4. Từ điển dữ liệu bảng `nhom_xu_ly_nguoi_dung`**
+
+| Cột | Kiểu dữ liệu | Ràng buộc | Mô tả |
+|---|---|---|---|
+| `nhom_xu_ly_id` | bigint unsigned | PK (thành phần), FK → `nhom_xu_ly.id`, ON DELETE CASCADE | Nhóm xử lý |
+| `nguoi_dung_id` | bigint unsigned | PK (thành phần), FK → `nguoi_dung.id`, ON DELETE CASCADE | Thành viên nhóm |
+| `la_truong_nhom` | boolean | DEFAULT false | Đánh dấu thành viên là trưởng nhóm trong nhóm |
+| `dinh_muc` | smallint unsigned | NULL | Định mức riêng của thành viên; NULL nghĩa là dùng định mức chung của nhóm |
+| `created_at`, `updated_at` | timestamp | NULL | Thời điểm tham gia/cập nhật |
+| Index | — | PK(`nhom_xu_ly_id`, `nguoi_dung_id`), INDEX(`nguoi_dung_id`) | Chống trùng thành viên trong cùng nhóm |
+
+Quan hệ n-n được khai báo qua `NhomXuLy::members()` và `NguoiDung::teams()`, cho phép lấy kèm `la_truong_nhom` và `dinh_muc`.
+
+**Bảng 2.7.5. Từ điển dữ liệu bảng `danh_muc`**
+
+| Cột | Kiểu dữ liệu | Ràng buộc | Mô tả |
+|---|---|---|---|
+| `id` | bigint unsigned | PK, auto increment | Khóa chính |
+| `danh_muc_cha_id` | bigint unsigned | NULL, FK → `danh_muc.id`, ON DELETE SET NULL | Danh mục cha; NULL là danh mục cấp 1. Mỗi danh mục cha có thể có nhiều danh mục con (tối đa 2 cấp) |
+| `ma` | varchar(64) | NOT NULL, UNIQUE | Mã danh mục sự cố |
+| `ten` | varchar(255) | NOT NULL | Tên danh mục |
+| `mo_ta` | varchar(255) | NULL | Mô tả danh mục |
+| `nhom_mac_dinh_id` | bigint unsigned | NULL, FK → `nhom_xu_ly.id`, ON DELETE SET NULL | Nhóm xử lý mặc định khi tạo phiếu thuộc danh mục này |
+| `uu_tien_mac_dinh` | varchar(2) | NULL | Mức ưu tiên mặc định của danh mục (`P1`–`P4`), lưu để phục vụ cấu hình/gợi ý; mức ưu tiên thực tế của phiếu được tính từ ma trận ảnh hưởng × khẩn cấp |
+| `dang_hoat_dong` | boolean | DEFAULT true | Trạng thái hoạt động; chỉ danh mục đang hoạt động mới được chọn khi tạo phiếu |
+| `created_at`, `updated_at` | timestamp | NULL | Thời điểm tạo/cập nhật bản ghi |
+| Index | — | PK(`id`), UNIQUE(`ma`), INDEX(`nhom_mac_dinh_id`), INDEX(`danh_muc_cha_id`, `dang_hoat_dong`) | Tối ưu duyệt cây danh mục và lọc danh mục đang hoạt động |
+
+Quan hệ: `parent`, `children`, `defaultTeam`, `tickets`; hàm `fullName()` hiển thị dạng `Danh mục cha / Danh mục con`.
+
+**Bảng 2.7.6. Từ điển dữ liệu bảng `binh_luan_phieu`**
+
+| Cột | Kiểu dữ liệu | Ràng buộc | Mô tả |
+|---|---|---|---|
+| `id` | bigint unsigned | PK, auto increment | Khóa chính |
+| `phieu_yeu_cau_id` | bigint unsigned | NOT NULL, FK → `phieu_yeu_cau.id`, ON DELETE CASCADE | Phiếu được trao đổi |
+| `nguoi_dung_id` | bigint unsigned | NOT NULL, FK → `nguoi_dung.id`, ON DELETE CASCADE | Người viết bình luận/ghi chú |
+| `noi_dung` | text | NOT NULL | Nội dung trao đổi; validation 2–5.000 ký tự |
+| `loai` | varchar(16) | DEFAULT `cong_khai`, INDEX | `cong_khai` = bình luận công khai; `noi_bo` = ghi chú nội bộ chỉ staff thấy |
+| `la_phan_hoi_dau` | boolean | DEFAULT false | `true` nếu là phản hồi công khai đầu tiên của staff; đồng thời cập nhật `phieu_yeu_cau.phan_hoi_dau_luc` |
+| `created_at`, `updated_at` | timestamp | NULL | Thời điểm tạo/cập nhật bản ghi |
+| Index | — | PK(`id`), INDEX(`loai`), INDEX(`nguoi_dung_id`), INDEX(`phieu_yeu_cau_id`, `created_at`) | Tối ưu hiển thị timeline và lọc ghi chú nội bộ |
+
+Quan hệ: `ticket`, `author`, `attachments`; hàm `isInternal()` xác định bình luận là ghi chú nội bộ.
+
+**Bảng 2.7.7. Từ điển dữ liệu bảng `tep_dinh_kem`**
+
+| Cột | Kiểu dữ liệu | Ràng buộc | Mô tả |
+|---|---|---|---|
+| `id` | bigint unsigned | PK, auto increment | Khóa chính |
+| `phieu_yeu_cau_id` | bigint unsigned | NOT NULL, FK → `phieu_yeu_cau.id`, ON DELETE CASCADE | Phiếu chứa tệp |
+| `binh_luan_id` | bigint unsigned | NULL, FK → `binh_luan_phieu.id`, ON DELETE CASCADE | Bình luận chứa tệp; NULL nếu tệp gắn trực tiếp với phiếu |
+| `nguoi_tai_len_id` | bigint unsigned | NULL, FK → `nguoi_dung.id`, ON DELETE SET NULL | Người tải tệp lên |
+| `disk` | varchar(32) | DEFAULT `local` | Tên disk lưu trữ của Laravel |
+| `duong_dan` | varchar(255) | NOT NULL | Đường dẫn tương đối trong storage, ví dụ `phieu/12/abc.pdf` |
+| `ten_goc` | varchar(255) | NOT NULL | Tên tệp gốc dùng khi hiển thị/tải xuống |
+| `dinh_dang` | varchar(128) | NULL | MIME type của tệp |
+| `kich_thuoc` | bigint unsigned | DEFAULT 0 | Kích thước tệp (byte) |
+| `created_at`, `updated_at` | timestamp | NULL | Thời điểm tải lên/cập nhật |
+| Index | — | PK(`id`), INDEX(`phieu_yeu_cau_id`), INDEX(`binh_luan_id`), INDEX(`nguoi_tai_len_id`) | Tối ưu tải danh sách tệp theo phiếu/bình luận |
+
+Quy tắc: tối đa 5 tệp mỗi lần gửi, mỗi tệp tối đa 5.120 KB (cấu hình `ho_tro.tep_dinh_kem`); định dạng cho phép gồm jpg, jpeg, png, gif, webp, pdf, doc, docx, xls, xlsx, ppt, pptx, txt, csv, zip, rar. Tệp được lưu ngoài thư mục `public` trong `storage/app/private/phieu/{id}` và chỉ tải được khi người dùng có quyền xem phiếu.
+
+**Bảng 2.7.8. Từ điển dữ liệu bảng `su_kien_phieu`**
+
+| Cột | Kiểu dữ liệu | Ràng buộc | Mô tả |
+|---|---|---|---|
+| `id` | bigint unsigned | PK, auto increment | Khóa chính |
+| `phieu_yeu_cau_id` | bigint unsigned | NOT NULL, FK → `phieu_yeu_cau.id`, ON DELETE CASCADE | Phiếu phát sinh sự kiện |
+| `nguoi_thuc_hien_id` | bigint unsigned | NULL, FK → `nguoi_dung.id`, ON DELETE SET NULL | Người thực hiện; NULL nếu do hệ thống thực hiện |
+| `loai` | varchar(32) | NOT NULL, INDEX | Loại sự kiện: `tao_moi`, `cap_nhat`, `doi_trang_thai`, `doi_uu_tien`, `phan_cong`, `binh_luan`, `ghi_chu_noi_bo`, `dinh_kem_tep`, `mo_lai`, `dong_phieu`, `them_nguoi_theo_doi` |
+| `tu_gia_tri` | varchar(32) | NULL | Giá trị cũ (trạng thái hoặc mức ưu tiên) |
+| `den_gia_tri` | varchar(32) | NULL | Giá trị mới |
+| `du_lieu_them` | json | NULL | Dữ liệu bổ sung: `ly_do`, `nguoi_xu_ly`, `nguoi_xu_ly_id`, `team`, `nhom_xu_ly_id`, `comment_id`, `ten`… |
+| `created_at`, `updated_at` | timestamp | NULL | Thời điểm phát sinh/cập nhật |
+| Index | — | PK(`id`), INDEX(`loai`), INDEX(`nguoi_thuc_hien_id`), INDEX(`phieu_yeu_cau_id`, `created_at`) | Tối ưu hiển thị timeline và lọc theo loại sự kiện |
+
+Vai trò: là nhật ký hoạt động đầy đủ của phiếu; hàm `summary()` chuyển sự kiện thành câu tiếng Việt để hiển thị timeline. Sự kiện `mo_lai` vẫn được lưu nên có thể đếm số lần mở lại từ bảng này.
+
+**Bảng 2.7.9. Từ điển dữ liệu bảng `lich_su_trang_thai`**
+
+| Cột | Kiểu dữ liệu | Ràng buộc | Mô tả |
+|---|---|---|---|
+| `id` | bigint unsigned | PK, auto increment | Khóa chính |
+| `phieu_yeu_cau_id` | bigint unsigned | NOT NULL, FK → `phieu_yeu_cau.id`, ON DELETE CASCADE | Phiếu được ghi lịch sử |
+| `trang_thai_truoc` | varchar(24) | NULL | Trạng thái trước; NULL ở bản ghi khởi tạo `moi` |
+| `trang_thai_sau` | varchar(24) | NOT NULL | Trạng thái sau |
+| `nguoi_thuc_hien_id` | bigint unsigned | NULL, FK → `nguoi_dung.id`, ON DELETE SET NULL | Người thực hiện |
+| `ly_do` | varchar(255) | NULL | Lý do/ghi chú khi chuyển trạng thái |
+| `bat_dau_luc` | timestamp | NULL | Thời điểm bắt đầu trạng thái |
+| `ket_thuc_luc` | timestamp | NULL | Thời điểm kết thúc; NULL nghĩa là trạng thái đang mở |
+| `created_at`, `updated_at` | timestamp | NULL | Thời điểm tạo/cập nhật bản ghi |
+| Index | — | PK(`id`), INDEX(`nguoi_thuc_hien_id`), INDEX(`phieu_yeu_cau_id`, `created_at`) | Tối ưu dựng lịch sử trạng thái |
+
+Vai trò: khi chuyển trạng thái, service đóng bản ghi đang mở và ghi `ket_thuc_luc`, sau đó tạo bản ghi mới cho trạng thái mới. Thời gian của từng trạng thái có thể tính từ `bat_dau_luc`/`ket_thuc_luc`; tổng thời gian giải quyết có thể tính từ `created_at`/`giai_quyet_luc`.
+
+**Bảng 2.7.10. Từ điển dữ liệu bảng `nguoi_theo_doi`**
+
+| Cột | Kiểu dữ liệu | Ràng buộc | Mô tả |
+|---|---|---|---|
+| `id` | bigint unsigned | PK, auto increment | Khóa chính |
+| `phieu_yeu_cau_id` | bigint unsigned | NOT NULL, FK → `phieu_yeu_cau.id`, ON DELETE CASCADE | Phiếu được theo dõi |
+| `nguoi_dung_id` | bigint unsigned | NOT NULL, FK → `nguoi_dung.id`, ON DELETE CASCADE | Người theo dõi |
+| `created_at`, `updated_at` | timestamp | NULL | Thời điểm bắt đầu/cập nhật theo dõi |
+| Index | — | PK(`id`), UNIQUE(`phieu_yeu_cau_id`, `nguoi_dung_id`), INDEX(`nguoi_dung_id`) | Chống trùng người theo dõi trên cùng phiếu |
+
+Vai trò: người yêu cầu được tự động thêm vào danh sách theo dõi khi tạo phiếu; bảng được dùng trong scope `visibleTo` và xác định người nhận thông báo.
+
+**Bảng 2.7.11. Từ điển dữ liệu bảng `notifications`**
+
+| Cột | Kiểu dữ liệu | Ràng buộc | Mô tả |
+|---|---|---|---|
+| `id` | char(36) | PK | UUID của thông báo |
+| `type` | varchar(255) | NOT NULL | Lớp notification, ví dụ `App\Notifications\ThongBaoPhieu` |
+| `notifiable_type` | varchar(255) | NOT NULL | Lớp đối tượng nhận, ví dụ `App\Models\NguoiDung` |
+| `notifiable_id` | bigint unsigned | NOT NULL | ID người nhận thông báo |
+| `data` | text | NOT NULL | Chuỗi JSON chứa `phieu_yeu_cau_id`, `ma_phieu`, `title`, `message`, `url` |
+| `read_at` | timestamp | NULL | Thời điểm đọc; NULL nghĩa là chưa đọc |
+| `created_at`, `updated_at` | timestamp | NULL | Thời điểm tạo/cập nhật thông báo |
+| Index | — | PK(`id`), INDEX(`notifiable_type`, `notifiable_id`) | Truy vấn thông báo theo người dùng |
+
+Vai trò: lưu thông báo kênh database; topbar hiển thị sáu thông báo gần nhất, trang `/thong-bao` hiển thị đầy đủ; `read_at` phục vụ đếm số thông báo chưa đọc.
+
+**Bảng 2.7.12. Từ điển dữ liệu bảng `roles`**
+
+| Cột | Kiểu dữ liệu | Ràng buộc | Mô tả |
+|---|---|---|---|
+| `id` | bigint unsigned | PK, auto increment | Khóa chính |
+| `name` | varchar(255) | NOT NULL | Tên vai trò: `requester` (Người yêu cầu), `agent` (Kỹ thuật viên), `lead` (Trưởng nhóm), `admin` (Quản trị viên) |
+| `guard_name` | varchar(255) | NOT NULL | Guard áp dụng; dự án sử dụng `web` |
+| `created_at`, `updated_at` | timestamp | NULL | Thời điểm tạo/cập nhật vai trò |
+| Index | — | PK(`id`), UNIQUE(`name`, `guard_name`) | Chống trùng vai trò trong cùng guard |
+
+Vai trò: bảng của Spatie Permission; 4 vai trò được seed bởi `VaiTroQuyenSeeder`.
+
+**Bảng 2.7.13. Từ điển dữ liệu bảng `permissions`**
+
+| Cột | Kiểu dữ liệu | Ràng buộc | Mô tả |
+|---|---|---|---|
+| `id` | bigint unsigned | PK, auto increment | Khóa chính |
+| `name` | varchar(255) | NOT NULL | Mã quyền: `ticket.view.own`, `ticket.view.all`, `ticket.create`, `ticket.update`, `ticket.assign`, `ticket.close`, `ticket.reopen`, `ticket.internal-note`, `report.view`, `catalog.manage`, `user.manage`, `admin.manage` |
+| `guard_name` | varchar(255) | NOT NULL | Guard áp dụng; dự án sử dụng `web` |
+| `created_at`, `updated_at` | timestamp | NULL | Thời điểm tạo/cập nhật quyền |
+| Index | — | PK(`id`), UNIQUE(`name`, `guard_name`) | Chống trùng quyền trong cùng guard |
+
+Vai trò: bảng của Spatie Permission; 12 quyền được seed bởi `VaiTroQuyenSeeder`. Ma trận gán quyền cho từng vai trò được trình bày tại Bảng 2.12.
+
+**Bảng 2.7.14. Từ điển dữ liệu bảng `model_has_roles`**
+
+| Cột | Kiểu dữ liệu | Ràng buộc | Mô tả |
+|---|---|---|---|
+| `role_id` | bigint unsigned | PK (thành phần), FK → `roles.id`, ON DELETE CASCADE | Vai trò được gán |
+| `model_type` | varchar(255) | NOT NULL, PK (thành phần) | Lớp người dùng, giá trị `App\Models\NguoiDung` |
+| `model_id` | bigint unsigned | NOT NULL, PK (thành phần) | ID người dùng |
+| Index | — | PK(`role_id`, `model_id`, `model_type`), INDEX(`model_id`, `model_type`) | Gán vai trò cho người dùng |
+
+Vai trò: bảng trung gian của Spatie Permission; controller dùng `syncRoles()` khi tạo/cập nhật người dùng.
+
+**Bảng 2.7.15. Từ điển dữ liệu bảng `model_has_permissions`**
+
+| Cột | Kiểu dữ liệu | Ràng buộc | Mô tả |
+|---|---|---|---|
+| `permission_id` | bigint unsigned | PK (thành phần), FK → `permissions.id`, ON DELETE CASCADE | Quyền được gán trực tiếp |
+| `model_type` | varchar(255) | NOT NULL, PK (thành phần) | Lớp người dùng, giá trị `App\Models\NguoiDung` |
+| `model_id` | bigint unsigned | NOT NULL, PK (thành phần) | ID người dùng |
+| Index | — | PK(`permission_id`, `model_id`, `model_type`), INDEX(`model_id`, `model_type`) | Gán quyền trực tiếp cho người dùng |
+
+Vai trò: bảng chuẩn của Spatie Permission dùng để gán quyền trực tiếp cho người dùng; dự án hiện gán quyền qua vai trò nên bảng thường rỗng.
+
+**Bảng 2.7.16. Từ điển dữ liệu bảng `role_has_permissions`**
+
+| Cột | Kiểu dữ liệu | Ràng buộc | Mô tả |
+|---|---|---|---|
+| `permission_id` | bigint unsigned | PK (thành phần), FK → `permissions.id`, ON DELETE CASCADE | Quyền |
+| `role_id` | bigint unsigned | PK (thành phần), FK → `roles.id`, ON DELETE CASCADE | Vai trò |
+| Index | — | PK(`permission_id`, `role_id`), INDEX(`role_id`) | Gán quyền cho vai trò |
+
+Vai trò: bảng trung gian của Spatie Permission; `VaiTroQuyenSeeder` dùng `syncPermissions()` để gán 12 quyền cho 4 vai trò.
+
+Ghi chú: các bảng hạ tầng `sessions`, `cache`, `cache_locks`, `jobs`, `job_batches`, `failed_jobs`, `password_reset_tokens` do Laravel sinh ra, giữ nguyên cấu trúc chuẩn và không trình bày chi tiết trong báo cáo.
 
 ### 2.2.3. Ràng buộc toàn vẹn và chỉ mục
 
@@ -1236,7 +1427,7 @@ Mỗi mức ưu tiên có mục tiêu thời gian phản hồi đầu tiên và 
 | **P3** | Trung bình | 120 phút (2 giờ) | 480 phút (8 giờ) |
 | **P4** | Thấp | 480 phút (8 giờ) | 1.440 phút (24 giờ) |
 
-Trong phiên bản hiện tại, hệ thống đã lưu các mốc `phan_hoi_dau_luc`, `giai_quyet_luc`, `dong_luc` và trường `phut_xu_ly`; việc tính vi phạm SLA theo giờ hành động và tạm dừng khi chờ người dùng được xem là hướng phát triển. Khi giải quyết phiếu, service cập nhật `phut_xu_ly` bằng số phút từ lúc tạo đến lúc giải quyết trừ đi thời gian tạm dừng (nếu có).
+Trong phiên bản hiện tại, hệ thống đã lưu các mốc `phan_hoi_dau_luc`, `giai_quyet_luc`, `dong_luc`; việc tính vi phạm SLA theo giờ hành động và tạm dừng khi chờ người dùng được xem là hướng phát triển. Khi giải quyết phiếu, service ghi nhận mốc `giai_quyet_luc` để phục vụ báo cáo sau này.
 
 ### 2.4.5. Chiến lược phân công
 
@@ -1374,7 +1565,7 @@ flowchart TD
 
 **Màn hình thông báo:** danh sách thông báo có trạng thái đọc/chưa đọc, tiêu đề, nội dung, thời gian; nút đánh dấu tất cả đã đọc. Trên topbar có dropdown hiển thị sáu thông báo gần nhất và badge số lượng chưa đọc.
 
-**Màn hình quản trị:** các màn hình danh sách có ô tìm kiếm, bảng dữ liệu, nút thêm mới, cột hành động sửa/xóa. Form thêm/cập nhật dùng bố cục hai cột, có validation và thông báo lỗi tiếng Việt. Màn hình người dùng cho phép gán vai trò, phòng ban, vị trí, nhóm xử lý, trạng thái hoạt động và cờ VIP.
+**Màn hình quản trị:** các màn hình danh sách có ô tìm kiếm, bảng dữ liệu, nút thêm mới, cột hành động sửa/xóa. Form thêm/cập nhật dùng bố cục hai cột, có validation và thông báo lỗi tiếng Việt. Màn hình người dùng cho phép gán vai trò, phòng ban, vị trí, nhóm xử lý và trạng thái hoạt động.
 
 ## 2.6. Thiết kế bảo mật
 
@@ -1670,8 +1861,7 @@ Phiếu yêu cầu được lưu trong bảng `phieu_yeu_cau` với các trườ
     'ma', 'tieu_de', 'mo_ta', 'nguoi_yeu_cau_id', 'phong_ban_id', 'vi_tri_id',
     'danh_muc_id', 'nhom_xu_ly_id', 'nguoi_xu_ly_id', 'trang_thai', 'uu_tien',
     'anh_huong', 'khan_cap', 'kenh', 'phan_cong_luc', 'phan_hoi_dau_luc',
-    'giai_quyet_luc', 'dong_luc', 'phut_xu_ly', 'phut_cho', 'phut_tam_dung',
-    'so_lan_mo_lai', 'diem_hai_long',
+    'giai_quyet_luc', 'dong_luc',
 ])]
 class PhieuYeuCau extends Model
 {
@@ -1802,16 +1992,11 @@ return DB::transaction(function () use ($ticket, $status, $actor, $reason): Phie
     if ($openHistory !== null) {
         $openHistory->update([
             'ket_thuc_luc' => $now,
-            'so_phut' => max(0, (int) $openHistory->bat_dau_luc?->diffInMinutes($now)),
         ]);
     }
 
     if ($status === TrangThaiPhieu::DaGiaiQuyet) {
         $updates['giai_quyet_luc'] = $now;
-        $updates['phut_xu_ly'] = max(
-            0,
-            (int) $ticket->created_at->diffInMinutes($now) - $ticket->phut_tam_dung,
-        );
     }
 
     if ($status === TrangThaiPhieu::DaDong) {
@@ -1820,7 +2005,6 @@ return DB::transaction(function () use ($ticket, $status, $actor, $reason): Phie
     }
 
     if ($status === TrangThaiPhieu::MoLai) {
-        $updates['so_lan_mo_lai'] = $ticket->so_lan_mo_lai + 1;
         $updates['giai_quyet_luc'] = null;
         $updates['dong_luc'] = null;
     }
@@ -1946,7 +2130,7 @@ Các thao tác phân công, đổi trạng thái, đóng và mở lại đều k
 | TICKET-12 | Chuyển trạng thái hợp lệ | `moi` → `dang_xu_ly` | Cập nhật trạng thái, ghi lịch sử/sự kiện | Đạt |
 | TICKET-13 | Chuyển trạng thái không hợp lệ | `da_dong` → `dang_xu_ly` | Báo lỗi, trạng thái không đổi | Đạt |
 | TICKET-14 | Đóng phiếu | Staff hoặc requester có quyền đóng | Trạng thái `da_dong`, ghi `dong_luc` | Đạt |
-| TICKET-15 | Mở lại phiếu | Mở phiếu `da_dong` | Trạng thái `mo_lai`, tăng `so_lan_mo_lai` | Đạt |
+| TICKET-15 | Mở lại phiếu | Mở phiếu `da_dong` | Trạng thái `mo_lai`, ghi sự kiện `mo_lai` | Đạt |
 | TICKET-16 | Requester xem phiếu người khác | Mở URL phiếu không thuộc quyền | HTTP 403/404 | Đạt |
 | TICKET-17 | Staff xem tất cả phiếu | Mở danh sách | Thấy toàn bộ phiếu | Đạt |
 | TICKET-18 | Timeline hoạt động | Thực hiện tạo, phân công, đổi trạng thái | Timeline ghi đúng thứ tự và người thực hiện | Đạt |
@@ -2202,7 +2386,6 @@ $user = DB::transaction(function () use ($data): NguoiDung {
         'phong_ban_id' => $data['phong_ban_id'] ?? null,
         'vi_tri_id' => $data['vi_tri_id'] ?? null,
         'dang_hoat_dong' => $data['dang_hoat_dong'] ?? true,
-        'la_vip' => $data['la_vip'] ?? false,
     ]);
 
     $user->syncRoles([$data['role']]);
@@ -2254,7 +2437,7 @@ Nhóm đang xử lý phiếu chưa hoàn tất không được xóa; điều nà
 
 ### 3.7.2. Giao diện
 
-Màn hình quản lý người dùng có bảng danh sách với avatar chữ cái, họ tên/email, vai trò, phòng ban, nhóm xử lý, trạng thái và các nút sửa/khóa. Form thêm/cập nhật cho phép chọn vai trò, phòng ban, vị trí, nhóm xử lý, trạng thái hoạt động và cờ VIP.
+Màn hình quản lý người dùng có bảng danh sách với avatar chữ cái, họ tên/email, vai trò, phòng ban, nhóm xử lý, trạng thái và các nút sửa/khóa. Form thêm/cập nhật cho phép chọn vai trò, phòng ban, vị trí, nhóm xử lý và trạng thái hoạt động.
 
 > 🖼️ **Hình 3.8. Giao diện quản lý người dùng**
 >
@@ -2288,7 +2471,7 @@ Màn hình phòng ban và vị trí có cùng cấu trúc: tìm kiếm, bảng d
 | ADMIN-08 | Xóa người dùng đã có phiếu | Xóa requester có phiếu | Từ chối, hiển thị thông báo | Đạt |
 | ADMIN-09 | Tạo phòng ban | Nhập mã/tên hợp lệ | Tạo thành công | Đạt |
 | ADMIN-10 | Xóa phòng ban đang dùng | Xóa phòng có người dùng/phiếu | Từ chối | Đạt |
-| ADMIN-11 | Tạo vị trí | Nhập tên/tòa nhà/tầng/khu vực | Tạo thành công | Đạt |
+| ADMIN-11 | Tạo vị trí | Nhập tên vị trí | Tạo thành công | Đạt |
 | ADMIN-12 | Xóa vị trí đang dùng | Xóa vị trí có phiếu/người dùng | Từ chối | Đạt |
 | ADMIN-13 | Tạo nhóm xử lý | Nhập mã/tên, chọn trưởng nhóm, thành viên | Tạo nhóm, đồng bộ pivot | Đạt |
 | ADMIN-14 | Xóa nhóm đang xử lý phiếu | Nhóm còn phiếu chưa hoàn tất | Từ chối | Đạt |
@@ -2388,7 +2571,7 @@ Về giao diện, các trang chính hiển thị đúng trên desktop và mobile
 
 Sau khi chạy migration và seed, cơ sở dữ liệu có:
 
-- **7 người dùng:** 1 admin, 1 lead, 2 agent, 3 requester (trong đó 1 VIP).
+- **7 người dùng:** 1 admin, 1 lead, 2 agent, 3 requester.
 - **5 phòng ban:** CNTT, HCNS, Kế toán, Đào tạo, Ban Giám hiệu.
 - **5 vị trí:** Phòng 305, Phòng 201, Phòng Lab 1, Thư viện, Phòng họp lớn.
 - **5 nhóm xử lý:** Hỗ trợ chung, Hạ tầng – Mạng, Thiết bị, Ứng dụng – ERP, Bảo mật.
@@ -2412,7 +2595,7 @@ Giao diện đã có đủ các màn hình chính: đăng nhập, đăng ký, qu
 | Chưa có module báo cáo – thống kê | Khó theo dõi KPI, SLA, tải công việc | Bổ sung dashboard báo cáo, biểu đồ, xuất Excel/PDF |
 | Chưa tự động phân công | Phân công còn phụ thuộc thao tác thủ công | Cài đặt thuật toán theo chiến lược nhóm, tải công việc, kỹ năng |
 | Chưa tính SLA theo giờ hành chính | Chưa đo chính xác thời gian xử lý thực tế | Bổ sung lịch làm việc, tạm dừng khi chờ người dùng/nhà cung cấp |
-| Chưa có đánh giá hài lòng | Thiếu phản hồi chất lượng dịch vụ | Thêm form đánh giá sau khi đóng phiếu, lưu `diem_hai_long` |
+| Chưa có đánh giá hài lòng | Thiếu phản hồi chất lượng dịch vụ | Thêm form đánh giá sau khi đóng phiếu và bổ sung cột lưu điểm hài lòng |
 | Chưa có API/SSO | Khó tích hợp hệ thống khác | Xây dựng REST API, tích hợp Active Directory/OAuth2 |
 | Chưa có real-time | Thông báo có độ trễ | Dùng WebSocket/Laravel Reverb, broadcast sự kiện |
 | Chưa quét virus tệp | Rủi ro tệp độc hại | Tích hợp ClamAV hoặc dịch vụ quét virus |
@@ -2453,9 +2636,9 @@ Quá trình thực hiện đồ án giúp nhóm hiểu rõ hơn về:
 Trong tương lai, hệ thống có thể được mở rộng theo các hướng:
 
 1. **Báo cáo – thống kê:** dashboard KPI, biểu đồ phiếu theo thời gian, theo nhóm, theo danh mục; báo cáo tuân thủ SLA; xuất Excel/PDF.
-2. **Tự động phân công:** triển khai thuật toán dựa trên chiến lược nhóm, tải công việc, kỹ năng và khu vực.
+2. **Tự động phân công:** triển khai thuật toán dựa trên chiến lược nhóm, tải công việc và kỹ năng.
 3. **SLA nâng cao:** tính theo giờ hành chính, tạm dừng khi chờ người dùng/nhà cung cấp, cảnh báo gần quá hạn.
-4. **Đánh giá hài lòng:** form đánh giá sau khi đóng phiếu, lưu `diem_hai_long`, báo cáo mức độ hài lòng.
+4. **Đánh giá hài lòng:** form đánh giá sau khi đóng phiếu, lưu điểm hài lòng và báo cáo mức độ hài lòng.
 5. **Tích hợp:** REST API, SSO/Active Directory, email nội bộ, hệ thống ERP/LMS, quét virus tệp.
 6. **Real-time:** WebSocket/Laravel Reverb cho thông báo tức thời, cập nhật trạng thái không cần tải lại trang.
 7. **Di động:** PWA hoặc ứng dụng mobile gọi API.
@@ -2493,99 +2676,6 @@ Nhóm chúng em xin chân thành cảm ơn quý thầy cô đã hướng dẫn, 
 19. osTicket, *osTicket Documentation*, https://docs.osticket.com.
 20. GLPI Project, *GLPI Documentation*, https://glpi-project.org/documentation.
 
-# PHỤ LỤC
-
-## Phụ lục A. Danh sách route chính
-
-**Bảng A.1. Danh sách route chính của hệ thống**
-
-| Method | URI | Tên route | Controller / Action | Middleware |
-|---|---|---|---|---|
-| GET | `/` | — | Redirect đến `/tong-quan` | web |
-| GET | `/login` | `login` | `PhienDangNhapController@create` | guest |
-| POST | `/login` | — | `PhienDangNhapController@store` | guest |
-| GET | `/register` | `register` | `DangKyController@create` | guest |
-| POST | `/register` | — | `DangKyController@store` | guest |
-| GET | `/forgot-password` | `password.request` | `GuiLienKetDatLaiMatKhauController@create` | guest |
-| POST | `/forgot-password` | `password.email` | `GuiLienKetDatLaiMatKhauController@store` | guest |
-| GET | `/reset-password/{token}` | `password.reset` | `DatLaiMatKhauController@create` | guest |
-| POST | `/reset-password` | `password.store` | `DatLaiMatKhauController@store` | guest |
-| GET | `/verify-email` | `verification.notice` | `NhacXacThucEmailController` | auth |
-| GET | `/verify-email/{id}/{hash}` | `verification.verify` | `XacThucEmailController` | auth, signed, throttle:6,1 |
-| GET | `/confirm-password` | `password.confirm` | `XacNhanMatKhauController@show` | auth |
-| POST | `/confirm-password` | — | `XacNhanMatKhauController@store` | auth |
-| PUT | `/password` | `password.update` | `DoiMatKhauController@update` | auth |
-| POST | `/logout` | `logout` | `PhienDangNhapController@destroy` | auth |
-| GET | `/tong-quan` | `tong-quan` | `TongQuanController@index` | auth, verified |
-| GET | `/phieu-yeu-cau` | `phieu.index` | `PhieuYeuCauController@index` | auth, verified |
-| GET | `/phieu-yeu-cau/create` | `phieu.create` | `PhieuYeuCauController@create` | auth, verified |
-| POST | `/phieu-yeu-cau` | `phieu.store` | `PhieuYeuCauController@store` | auth, verified |
-| GET | `/phieu-yeu-cau/{ticket}` | `phieu.show` | `PhieuYeuCauController@show` | auth, verified |
-| PUT/PATCH | `/phieu-yeu-cau/{ticket}` | `phieu.update` | `PhieuYeuCauController@update` | auth, verified |
-| POST | `/phieu-yeu-cau/{ticket}/binh-luan` | `phieu.binh-luan.store` | `BinhLuanPhieuController@store` | auth, verified |
-| POST | `/phieu-yeu-cau/{ticket}/tep-dinh-kem` | `phieu.tep.store` | `TepDinhKemPhieuController@store` | auth, verified |
-| GET | `/phieu-yeu-cau/{ticket}/tep-dinh-kem/{attachment}/tai` | `phieu.tep.tai` | `TepDinhKemPhieuController@download` | auth, verified |
-| POST | `/phieu-yeu-cau/{ticket}/dong` | `phieu.dong` | `PhieuYeuCauController@close` | auth, verified |
-| POST | `/phieu-yeu-cau/{ticket}/mo-lai` | `phieu.mo-lai` | `PhieuYeuCauController@reopen` | auth, verified |
-| POST | `/phieu-yeu-cau/{ticket}/phan-cong` | `phieu.phan-cong` | `PhieuYeuCauController@assign` | auth, verified |
-| GET | `/thong-bao` | `thong-bao.index` | `ThongBaoController@index` | auth, verified |
-| POST | `/thong-bao/doc-het` | `thong-bao.doc-het` | `ThongBaoController@markAllAsRead` | auth, verified |
-| POST | `/thong-bao/{notification}/doc` | `thong-bao.doc` | `ThongBaoController@markAsRead` | auth, verified |
-| GET | `/ho-so` | `ho-so.edit` | `HoSoController@edit` | auth, verified |
-| PATCH | `/ho-so` | `ho-so.update` | `HoSoController@update` | auth, verified |
-| DELETE | `/ho-so` | `ho-so.destroy` | `HoSoController@destroy` | auth, verified |
-| GET | `/quan-tri/nguoi-dung` | `quan-tri.nguoi-dung.index` | `NguoiDungController@index` | auth, verified, permission:user.manage |
-| GET | `/quan-tri/nguoi-dung/create` | `quan-tri.nguoi-dung.create` | `NguoiDungController@create` | auth, verified, permission:user.manage |
-| POST | `/quan-tri/nguoi-dung` | `quan-tri.nguoi-dung.store` | `NguoiDungController@store` | auth, verified, permission:user.manage |
-| GET | `/quan-tri/nguoi-dung/{user}/edit` | `quan-tri.nguoi-dung.edit` | `NguoiDungController@edit` | auth, verified, permission:user.manage |
-| PUT/PATCH | `/quan-tri/nguoi-dung/{user}` | `quan-tri.nguoi-dung.update` | `NguoiDungController@update` | auth, verified, permission:user.manage |
-| DELETE | `/quan-tri/nguoi-dung/{user}` | `quan-tri.nguoi-dung.destroy` | `NguoiDungController@destroy` | auth, verified, permission:user.manage |
-| POST | `/quan-tri/nguoi-dung/{user}/kich-hoat` | `quan-tri.nguoi-dung.kich-hoat` | `NguoiDungController@toggle` | auth, verified, permission:user.manage |
-| GET/POST | `/quan-tri/phong-ban` | `quan-tri.phong-ban.*` | `PhongBanController` | auth, verified, permission:catalog.manage |
-| GET/POST | `/quan-tri/vi-tri` | `quan-tri.vi-tri.*` | `ViTriController` | auth, verified, permission:catalog.manage |
-| GET/POST | `/quan-tri/nhom-xu-ly` | `quan-tri.nhom-xu-ly.*` | `NhomXuLyController` | auth, verified, permission:catalog.manage |
-
-## Phụ lục B. Cấu trúc thư mục mã nguồn
-
-```text
-TicketIT/
-├── app/
-│   ├── Enums/                 6 enum nghiệp vụ
-│   ├── Http/
-│   │   ├── Controllers/
-│   │   │   ├── Auth/          9 controller xác thực
-│   │   │   ├── Admin/         NguoiDung, PhongBan, ViTri, NhomXuLy
-│   │   │   ├── PhieuYeuCauController.php
-│   │   │   ├── BinhLuanPhieuController.php
-│   │   │   ├── TepDinhKemPhieuController.php
-│   │   │   ├── ThongBaoController.php
-│   │   │   ├── TongQuanController.php
-│   │   │   └── HoSoController.php
-│   │   ├── Middleware/EnsureUserIsActive.php
-│   │   └── Requests/          Form Request cho phiếu, bình luận, tệp, hồ sơ, admin
-│   ├── Models/                11 model nghiệp vụ
-│   ├── Notifications/ThongBaoPhieu.php
-│   ├── Policies/              PhieuYeuCauPolicy, TepDinhKemPolicy
-│   └── Services/Phieu/        DichVuPhieuYeuCau, DichVuTepDinhKem, DichVuThongBaoPhieu
-├── bootstrap/app.php
-├── config/                    app, auth, database, mail, permission, ho_tro
-├── database/
-│   ├── migrations/
-│   └── seeders/
-├── public/                    index.php, build assets
-├── resources/
-│   ├── css/app.css
-│   ├── js/app.js
-│   └── views/                 auth, phieu-yeu-cau, quan-tri, ho-so,
-│                               thong-bao, components, layouts
-├── routes/                    web.php, auth.php, console.php
-├── storage/                   app/private, framework, logs
-├── .env
-├── composer.json
-├── package.json
-├── vite.config.js
-└── README.md
-```
 
 ## Phụ lục C. Tài khoản demo và dữ liệu mẫu
 
@@ -2599,7 +2689,7 @@ TicketIT/
 | Kỹ thuật viên (agent) | `agent2@ticket.it` | `11111111` | Nhóm Thiết bị + Ứng dụng – ERP |
 | Người yêu cầu | `requester@ticket.it` | `11111111` | Phòng HCNS — Phòng 305 |
 | Người yêu cầu | `requester2@ticket.it` | `11111111` | Phòng Kế toán — Phòng 201 |
-| Người yêu cầu VIP | `director@ticket.it` | `11111111` | Ban Giám hiệu, `la_vip = true` |
+| Người yêu cầu | `director@ticket.it` | `11111111` | Ban Giám hiệu |
 
 **Bảng C.2. Dữ liệu mẫu sau khi seed**
 
@@ -2629,225 +2719,4 @@ TicketIT/
 6. Máy tính phòng 201 không lên nguồn — nhóm Thiết bị, P3, đã giải quyết.
 7. Email lừa đảo mạo danh phòng đào tạo — nhóm Bảo mật, P4, mới.
 
-## Phụ lục D. Hướng dẫn cài đặt và cấu hình
-
-### D.1. Yêu cầu hệ thống
-
-- PHP ≥ 8.3 với các extension `pdo_mysql`, `mbstring`, `openssl`, `fileinfo`, `intl`, `zip`, `curl`.
-- Composer 2.x.
-- MySQL ≥ 8.0.
-- Node.js ≥ 18 và npm.
-- Web server Laragon (Apache/Nginx) hoặc `php artisan serve`.
-- Mailpit (đi kèm Laragon) hoặc SMTP server.
-
-### D.2. Các bước cài đặt
-
-```bash
-# 1. Cài dependency PHP
-composer install
-
-# 2. Cài dependency frontend
-npm install
-
-# 3. Tạo file môi trường
-copy .env.example .env
-# macOS/Linux: cp .env.example .env
-
-# 4. Sinh khóa ứng dụng
-php artisan key:generate
-
-# 5. Tạo database MySQL
-mysql -u root -e "CREATE DATABASE IF NOT EXISTS ticket_it CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
-
-# 6. Chạy migration và seed dữ liệu mẫu
-php artisan migrate:fresh --seed
-
-# 7. Build tài nguyên frontend
-npm run build
-
-# 8. Chạy ứng dụng
-php artisan serve
-```
-
-Mở `http://127.0.0.1:8000` hoặc `http://ticketit.test` nếu dùng Laragon với DocumentRoot trỏ đến thư mục `public`.
-
-### D.3. Cấu hình `.env` quan trọng
-
-```dotenv
-APP_NAME="Hệ thống hỗ trợ IT"
-APP_URL=http://ticketit.test
-APP_LOCALE=vi
-APP_TIMEZONE=Asia/Ho_Chi_Minh
-
-DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_DATABASE=ticket_it
-DB_USERNAME=root
-DB_PASSWORD=
-
-SESSION_DRIVER=database
-CACHE_STORE=database
-QUEUE_CONNECTION=database
-
-MAIL_MAILER=smtp
-MAIL_HOST=127.0.0.1
-MAIL_PORT=1025
-MAIL_FROM_ADDRESS="helpdesk@ticket.it"
-```
-
-### D.4. Kiểm tra sau cài đặt
-
-- Đăng nhập bằng `admin@ticket.it` / `11111111`.
-- Kiểm tra dashboard, danh sách phiếu, chi tiết phiếu.
-- Kiểm tra trang quản trị người dùng, phòng ban, vị trí, nhóm xử lý.
-- Kiểm tra gửi thông báo qua Mailpit tại `http://127.0.0.1:8025`.
-- Chạy `php artisan route:list` để kiểm tra route.
-- Chạy `vendor/bin/pint --test` để kiểm tra code style (nếu cần).
-
-### D.5. Một số lỗi thường gặp
-
-| Lỗi | Nguyên nhân | Cách xử lý |
-|---|---|---|
-| `419 Page Expired` | Thiếu CSRF token hoặc phiên hết hạn | Thêm `@csrf`, kiểm tra `SESSION_DRIVER`, xóa cache trình duyệt |
-| `SQLSTATE[HY000] [1049] Unknown database` | Chưa tạo database `ticket_it` | Tạo database theo hướng dẫn |
-| `Vite manifest not found` | Chưa build frontend | Chạy `npm run build` hoặc `npm run dev` |
-| CSS/JS không tải | Vite dev server chưa chạy hoặc `public/hot` còn tồn tại | Chạy `npm run dev` hoặc xóa `public/hot` và build lại |
-| Không gửi được email | Mailpit/SMTP chưa chạy | Khởi động Mailpit, kiểm tra `MAIL_*` trong `.env` |
-| 403 khi vào quản trị | Tài khoản không có quyền | Đăng nhập admin hoặc kiểm tra seeder vai trò/quyền |
-| 500 do route không tồn tại | Tên route trong view không khớp | Chạy `php artisan route:list`, sửa tên route |
-
-## Phụ lục E. Bảng mã trạng thái, ưu tiên và danh mục
-
-### E.1. Mã trạng thái phiếu
-
-**Bảng E.1. Mã trạng thái phiếu**
-
-| Mã | Nhãn hiển thị | Nhóm | Ghi chú |
-|---|---|---|---|
-| `moi` | Mới | Đang mở | Trạng thái mặc định khi tạo phiếu |
-| `da_phan_cong` | Đã phân công | Đang mở | Đã có người xử lý |
-| `dang_xu_ly` | Đang xử lý | Đang mở | Kỹ thuật viên đang xử lý |
-| `cho_nguoi_dung` | Chờ người dùng | Đang mở | Chờ phản hồi/bổ sung thông tin |
-| `cho_nha_cung_cap` | Chờ nhà cung cấp | Đang mở | Chờ đối tác xử lý |
-| `da_giai_quyet` | Đã giải quyết | Sắp đóng | Đã khắc phục, chờ xác nhận |
-| `da_dong` | Đã đóng | Đã đóng | Kết thúc xử lý |
-| `mo_lai` | Mở lại | Đang mở | Quay lại quy trình sau khi đóng/giải quyết |
-
-### E.2. Mã mức ưu tiên
-
-**Bảng E.2. Mã mức ưu tiên**
-
-| Mã | Nhãn | Màu badge | Phản hồi đầu tiên | Giải quyết |
-|---|---|---|---|---|
-| `P1` | P1 – Nghiêm trọng | Rose | 15 phút | 120 phút |
-| `P2` | P2 – Cao | Cam | 30 phút | 240 phút |
-| `P3` | P3 – Trung bình | Hổ phách | 120 phút | 480 phút |
-| `P4` | P4 – Thấp | Xám | 480 phút | 1.440 phút |
-
-### E.3. Danh mục sự cố hai cấp
-
-**Bảng E.3. Danh mục sự cố hai cấp**
-
-| Danh mục cha | Mã cha | Danh mục con | Mã con | Nhóm mặc định |
-|---|---|---|---|---|
-| Tài khoản & Mật khẩu | `account` | Quên mật khẩu | `account-forgot` | Hỗ trợ chung |
-| | | Tài khoản bị khoá | `account-locked` | Hỗ trợ chung |
-| | | Cấp quyền truy cập | `account-access` | Hỗ trợ chung |
-| Mạng – Wifi | `network` | Mất kết nối mạng | `network-down` | Hạ tầng – Mạng |
-| | | Wifi chậm / không kết nối | `network-wifi` | Hạ tầng – Mạng |
-| | | Lỗi VPN | `network-vpn` | Hạ tầng – Mạng |
-| Máy in | `printer` | Không in được | `printer-not-printing` | Thiết bị |
-| | | Kẹt giấy / lỗi khay giấy | `printer-paper` | Thiết bị |
-| | | Cài đặt driver máy in | `printer-driver` | Thiết bị |
-| Phần cứng | `hardware` | Máy không lên nguồn | `hardware-power` | Thiết bị |
-| | | Màn hình / hiển thị | `hardware-display` | Thiết bị |
-| | | Bàn phím, chuột, thiết bị ngoại vi | `hardware-peripheral` | Thiết bị |
-| Email | `email` | Không gửi được email | `email-send` | Ứng dụng – ERP |
-| | | Hộp thư đầy | `email-full` | Ứng dụng – ERP |
-| | | Cấu hình Outlook | `email-outlook` | Ứng dụng – ERP |
-| Phần mềm – ERP | `erp` | Lỗi đăng nhập ERP | `erp-login` | Ứng dụng – ERP |
-| | | Lỗi phân hệ kế toán | `erp-accounting` | Ứng dụng – ERP |
-| | | Cài đặt / cập nhật phần mềm | `erp-install` | Ứng dụng – ERP |
-| Hệ thống học vụ | `academic` | Lỗi LMS | `academic-lms` | Ứng dụng – ERP |
-| | | Đăng ký môn học | `academic-enroll` | Ứng dụng – ERP |
-| Bảo mật | `security` | Virus / Malware | `security-virus` | Bảo mật |
-| | | Email lừa đảo | `security-phishing` | Bảo mật |
-
-## Phụ lục F. Checklist kiểm thử chức năng
-
-**Bảng F.1. Checklist kiểm thử chức năng**
-
-| STT | Hạng mục kiểm tra | Kịch bản | Kết quả mong đợi | Trạng thái |
-|---:|---|---|---|---|
-| 1 | Đăng nhập | Tài khoản admin đúng | Vào dashboard, hiển thị vai trò | ✅ |
-| 2 | Đăng nhập sai | Sai mật khẩu | Báo lỗi, không vào hệ thống | ✅ |
-| 3 | Khóa tài khoản | Admin khóa user, user đăng nhập | Bị từ chối, thông báo | ✅ |
-| 4 | Đăng ký | Email mới, mật khẩu hợp lệ | Tạo tài khoản requester | ✅ |
-| 5 | Quên mật khẩu | Email tồn tại | Gửi email đặt lại | ✅ |
-| 6 | Tạo phiếu | Đầy đủ thông tin | Tạo phiếu, sinh mã, tính P | ✅ |
-| 7 | Tạo phiếu thiếu dữ liệu | Bỏ trống trường bắt buộc | Báo lỗi từng trường | ✅ |
-| 8 | Tạo phiếu P1 | Ảnh hưởng cao, khẩn cấp cao | Phiếu P1 | ✅ |
-| 9 | Tìm kiếm phiếu | Nhập mã/tiêu đề | Đúng kết quả | ✅ |
-| 10 | Lọc phiếu | Trạng thái/ưu tiên/danh mục/người phụ trách | Danh sách đúng điều kiện | ✅ |
-| 11 | Xem chi tiết | Mở phiếu được phép | Hiển thị đủ thông tin | ✅ |
-| 12 | Chặn xem phiếu | Requester mở phiếu người khác | 403/404 | ✅ |
-| 13 | Phân công | Chọn nhóm + kỹ thuật viên | Cập nhật, thông báo | ✅ |
-| 14 | Đổi trạng thái hợp lệ | `moi` → `dang_xu_ly` | Cập nhật, ghi lịch sử | ✅ |
-| 15 | Đổi trạng thái sai | `da_dong` → `dang_xu_ly` | Báo lỗi, không đổi | ✅ |
-| 16 | Đóng phiếu | Staff/requester có quyền | Trạng thái đã đóng | ✅ |
-| 17 | Mở lại phiếu | Mở phiếu đã đóng | Trạng thái mở lại, tăng số lần | ✅ |
-| 18 | Bình luận công khai | Requester gửi | Hiển thị, thông báo | ✅ |
-| 19 | Ghi chú nội bộ | Staff gửi | Requester không thấy | ✅ |
-| 20 | Chặn ghi chú nội bộ | Requester gửi `noi_bo` | 403 | ✅ |
-| 21 | Tệp hợp lệ | PDF/PNG < 5 MB | Lưu và tải xuống được | ✅ |
-| 22 | Tệp sai định dạng/quá lớn | `.exe` hoặc > 5 MB | Báo lỗi | ✅ |
-| 23 | Tải tệp nội bộ | Requester mở URL | 403 | ✅ |
-| 24 | Thông báo database | Tạo/phân công/đổi trạng thái | Badge và danh sách cập nhật | ✅ |
-| 25 | Đánh dấu đã đọc | Bấm thông báo | Badge giảm | ✅ |
-| 26 | Quản lý người dùng | CRUD, gán vai trò/nhóm | Lưu đúng, phân quyền đúng | ✅ |
-| 27 | Quản lý phòng ban/vị trí | CRUD, xóa có ràng buộc | Tạo/sửa/xóa đúng quy tắc | ✅ |
-| 28 | Quản lý nhóm | CRUD, trưởng nhóm, thành viên | Đồng bộ pivot đúng | ✅ |
-| 29 | Hồ sơ cá nhân | Cập nhật, đổi mật khẩu, xóa | Lưu đúng, xác nhận mật khẩu | ✅ |
-| 30 | Responsive | Thu nhỏ trình duyệt/mobile | Sidebar thu gọn, form/bảng dùng được | ✅ |
-
-## Phụ lục G. Gợi ý vị trí chèn ảnh chụp màn hình
-
-Để báo cáo sinh động và đúng mẫu, nên chụp ảnh các màn hình sau và chèn vào đúng vị trí `Hình 3.x`:
-
-| Hình | Trang cần chụp | Nội dung nên thể hiện |
-|---|---|---|
-| Hình 3.1 | `/login` | Form đăng nhập + khối tài khoản demo |
-| Hình 3.2 | `/register` | Form đăng ký tài khoản |
-| Hình 3.3 | `/tong-quan` | Dashboard của admin/staff và của requester |
-| Hình 3.4 | `/phieu-yeu-cau` | Bộ lọc + bảng danh sách phiếu |
-| Hình 3.5 | `/phieu-yeu-cau/create` | Form tạo phiếu + mức ưu tiên dự kiến |
-| Hình 3.6 | `/phieu-yeu-cau/{id}` | Chi tiết phiếu + timeline + bình luận |
-| Hình 3.7 | `/thong-bao` | Danh sách thông báo + dropdown chuông |
-| Hình 3.8 | `/quan-tri/nguoi-dung` | Danh sách và form người dùng |
-| Hình 3.9 | `/quan-tri/nhom-xu-ly` | Danh sách nhóm + form thành viên |
-| Hình 3.10 | `/quan-tri/phong-ban`, `/quan-tri/vi-tri` | Danh sách phòng ban/vị trí |
-| Hình 3.11 | `/ho-so` | Hồ sơ cá nhân + đổi mật khẩu |
-
-**Lưu ý khi chụp ảnh:**
-
-- Đăng nhập bằng tài khoản phù hợp để thể hiện đúng vai trò (admin, agent, requester).
-- Che hoặc thay thế thông tin nhạy cảm nếu có; với dữ liệu demo có thể giữ nguyên.
-- Chụp ở kích thước tối thiểu 1280×720, ưu tiên 1920×1080; căn cửa sổ trình duyệt để thấy rõ sidebar/topbar.
-- Đặt tên file theo số hình, ví dụ `hinh-3-1-dang-nhap.png`, lưu trong `docs/images/`.
-- Khi chuyển sang Word, chèn ảnh với caption ở dưới, căn giữa, cùng font với báo cáo.
-
----
-
-## Ghi chú hoàn thiện báo cáo
-
-1. **Thông tin cá nhân:** điền họ tên sinh viên, MSSV, nhóm, giảng viên hướng dẫn ở trang bìa; có thể bổ sung logo trường/viện.
-2. **Định dạng:** khi chuyển sang Word, dùng khổ A4, lề trên 3 cm, dưới 2,5 cm, trái 3 cm, phải 2 cm; font Times New Roman 13, giãn dòng 1,5; tiêu đề chương in đậm, căn giữa.
-3. **Đánh số trang:** bắt đầu từ phần Mở đầu hoặc từ Chương 1; dùng chữ số Ả Rập, cỡ 12–13.
-4. **Hình và bảng:** mỗi hình/bảng có caption ở trên (bảng) hoặc dưới (hình); đánh số theo chương; trích dẫn nguồn nếu lấy từ bên ngoài.
-5. **Tài liệu tham khảo:** giữ định dạng thống nhất; có thể bổ sung tài liệu tiếng Anh/website chính thức.
-6. **Mã nguồn:** nếu phụ lục quá dài, chỉ trích các đoạn quan trọng; mã nguồn đầy đủ có thể nộp kèm theo gói dự án.
-7. **Kiểm tra chính tả:** rà soát các từ viết hoa, tên bảng/cột, tên route và số liệu trước khi in.
-8. **Xuất PDF:** kiểm tra lại dấu tiếng Việt, bảng không bị tràn lề, hình không bị vỡ; nên xuất thử và xem trước khi nộp.
-
-> **Ghi chú cuối:** Báo cáo được xây dựng dựa trên mã nguồn và dữ liệu thực tế của dự án TicketIT tại thời điểm lập tài liệu. Một số thông tin cá nhân và ảnh chụp màn hình được để dưới dạng placeholder để người sử dụng bổ sung. Nếu dự án tiếp tục thay đổi, cần cập nhật lại số liệu, route, cấu trúc dữ liệu và kết quả kiểm thử tương ứng.
+#

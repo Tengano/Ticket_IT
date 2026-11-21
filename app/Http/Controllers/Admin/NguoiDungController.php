@@ -66,7 +66,6 @@ class NguoiDungController extends Controller
                 'phong_ban_id' => $data['phong_ban_id'] ?? null,
                 'vi_tri_id' => $data['vi_tri_id'] ?? null,
                 'dang_hoat_dong' => $data['dang_hoat_dong'] ?? true,
-                'la_vip' => $data['la_vip'] ?? false,
             ]);
 
             $user->syncRoles([$data['role']]);
@@ -93,7 +92,7 @@ class NguoiDungController extends Controller
 
         DB::transaction(function () use ($user, $data): void {
             $attributes = Arr::only($data, [
-                'ten', 'email', 'dien_thoai', 'phong_ban_id', 'vi_tri_id', 'dang_hoat_dong', 'la_vip',
+                'ten', 'email', 'dien_thoai', 'phong_ban_id', 'vi_tri_id', 'dang_hoat_dong',
             ]);
 
             if (! empty($data['password'])) {

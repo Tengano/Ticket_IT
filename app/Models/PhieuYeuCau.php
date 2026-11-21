@@ -17,7 +17,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
     'ma', 'tieu_de', 'mo_ta', 'nguoi_yeu_cau_id', 'phong_ban_id', 'vi_tri_id', 'danh_muc_id',
     'nhom_xu_ly_id', 'nguoi_xu_ly_id', 'trang_thai', 'uu_tien', 'anh_huong', 'khan_cap', 'kenh',
     'phan_cong_luc', 'phan_hoi_dau_luc', 'giai_quyet_luc', 'dong_luc',
-    'phut_xu_ly', 'phut_cho', 'phut_tam_dung', 'so_lan_mo_lai', 'diem_hai_long',
 ])]
 class PhieuYeuCau extends Model
 {
@@ -37,11 +36,6 @@ class PhieuYeuCau extends Model
             'phan_hoi_dau_luc' => 'datetime',
             'giai_quyet_luc' => 'datetime',
             'dong_luc' => 'datetime',
-            'phut_xu_ly' => 'integer',
-            'phut_cho' => 'integer',
-            'phut_tam_dung' => 'integer',
-            'so_lan_mo_lai' => 'integer',
-            'diem_hai_long' => 'integer',
         ];
     }
 

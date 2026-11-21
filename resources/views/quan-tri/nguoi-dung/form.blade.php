@@ -81,10 +81,6 @@
                         <input type="checkbox" name="dang_hoat_dong" value="1" class="h-4 w-4 rounded border-slate-300 text-indigo-600" @checked(old('dang_hoat_dong', $isEdit ? $user->dang_hoat_dong : true))>
                         Tài khoản đang hoạt động
                     </label>
-                    <label class="flex items-center gap-2 text-sm text-slate-700">
-                        <input type="checkbox" name="la_vip" value="1" class="h-4 w-4 rounded border-slate-300 text-indigo-600" @checked(old('la_vip', $user->la_vip))>
-                        Người dùng VIP (ưu tiên xử lý)
-                    </label>
                 </div>
             </div>
 

@@ -30,9 +30,6 @@
                                 <td class="font-mono text-xs">{{ $department->ma }}</td>
                                 <td>
                                     <p class="font-medium text-slate-800">{{ $department->ten }}</p>
-                                    @if ($department->mo_ta)
-                                        <p class="text-xs text-slate-400">{{ $department->mo_ta }}</p>
-                                    @endif
                                 </td>
                                 <td class="text-sm">{{ $department->users_count }}</td>
                                 <td class="text-sm">{{ $department->tickets_count }}</td>

@@ -169,16 +169,11 @@ class DichVuPhieuYeuCau
             if ($openHistory !== null) {
                 $openHistory->update([
                     'ket_thuc_luc' => $now,
-                    'so_phut' => max(0, (int) $openHistory->bat_dau_luc?->diffInMinutes($now)),
                 ]);
             }
 
             if ($status === TrangThaiPhieu::DaGiaiQuyet) {
                 $updates['giai_quyet_luc'] = $now;
-                $updates['phut_xu_ly'] = max(
-                    0,
-                    (int) $ticket->created_at->diffInMinutes($now) - $ticket->phut_tam_dung,
-                );
             }
 
             if ($status === TrangThaiPhieu::DaDong) {
@@ -187,7 +182,6 @@ class DichVuPhieuYeuCau
             }
 
             if ($status === TrangThaiPhieu::MoLai) {
-                $updates['so_lan_mo_lai'] = $ticket->so_lan_mo_lai + 1;
                 $updates['giai_quyet_luc'] = null;
                 $updates['dong_luc'] = null;
             }

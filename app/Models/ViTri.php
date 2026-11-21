@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-#[Fillable(['ten', 'toa_nha', 'tang', 'khu_vuc', 'mo_ta', 'dang_hoat_dong'])]
+#[Fillable(['ten', 'dang_hoat_dong'])]
 class ViTri extends Model
 {
     protected $table = 'vi_tri';
@@ -39,8 +39,6 @@ class ViTri extends Model
 
     public function fullName(): string
     {
-        return collect([$this->toa_nha, $this->tang, $this->ten])
-            ->filter()
-            ->implode(' – ');
+        return $this->ten;
     }
 }

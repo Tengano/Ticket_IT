@@ -24,7 +24,7 @@
             <div class="overflow-x-auto">
                 <table class="table-base">
                     <thead>
-                        <tr><th>Nhóm</th><th>Trưởng nhóm</th><th>Lịch làm việc</th><th>Chiến lược</th><th>Thành viên</th><th>PhieuYeuCau</th><th>Trạng thái</th><th></th></tr>
+                        <tr><th>Nhóm</th><th>Trưởng nhóm</th><th>Chiến lược</th><th>Thành viên</th><th>PhieuYeuCau</th><th>Trạng thái</th><th></th></tr>
                     </thead>
                     <tbody>
                         @foreach ($teams as $team)
@@ -34,7 +34,6 @@
                                     <p class="font-mono text-xs text-slate-400">{{ $team->ma }}</p>
                                 </td>
                                 <td class="text-sm">{{ $team->lead?->ten ?? '—' }}</td>
-                                <td class="text-sm">{{ $team->businessCalendar?->ten ?? '—' }}</td>
                                 <td class="text-sm">{{ $strategyLabels[$team->chien_luoc_phan_cong] ?? $team->chien_luoc_phan_cong }}</td>
                                 <td class="text-sm">{{ $team->members_count }} / {{ $team->dinh_muc }}</td>
                                 <td class="text-sm">{{ $team->tickets_count }}</td>

@@ -22,11 +22,6 @@
             <x-input-error :messages="$errors->get('name')" class="field-error" />
         </div>
 
-        <div>
-            <label for="mo_ta" class="field-label">Mô tả</label>
-            <input id="mo_ta" name="mo_ta" value="{{ old('mo_ta', $department->mo_ta) }}" class="field">
-        </div>
-
         <label class="flex items-center gap-2 text-sm text-slate-700">
             <input type="checkbox" name="dang_hoat_dong" value="1" class="h-4 w-4 rounded border-slate-300 text-indigo-600" @checked(old('dang_hoat_dong', $isEdit ? $department->dang_hoat_dong : true))>
             Đang sử dụng

@@ -1,5 +1,5 @@
 <x-app-layout>
-    <x-page-header title="Vị trí / phòng" description="Sơ đồ vị trí dùng để định tuyến ticket theo khu vực."
+    <x-page-header title="Vị trí / phòng" description="Sơ đồ vị trí dùng để định tuyến ticket theo phòng."
         :breadcrumbs="[['label' => 'Tổng quan', 'url' => route('tong-quan')], ['label' => 'Vị trí']]">
         <x-slot name="actions">
             <a href="{{ route('quan-tri.vi-tri.create') }}" class="btn-primary"><x-icon name="plus" class="h-4 w-4" /> Thêm vị trí</a>
@@ -9,7 +9,7 @@
     <form method="GET" class="card mb-5 flex flex-wrap items-end gap-3 p-4">
         <div class="min-w-56 flex-1">
             <label for="q" class="field-label">Tìm kiếm</label>
-            <input id="q" name="q" value="{{ $search }}" class="field" placeholder="Tên phòng, tòa nhà, khu vực...">
+            <input id="q" name="q" value="{{ $search }}" class="field" placeholder="Tên phòng...">
         </div>
         <button type="submit" class="btn-primary">Lọc</button>
         <a href="{{ route('quan-tri.vi-tri.index') }}" class="btn-secondary">Xoá lọc</a>
@@ -22,15 +22,12 @@
             <div class="overflow-x-auto">
                 <table class="table-base">
                     <thead>
-                        <tr><th>Vị trí</th><th>Tòa nhà</th><th>Tầng</th><th>Khu vực</th><th>PhieuYeuCau</th><th>Trạng thái</th><th></th></tr>
+                        <tr><th>Vị trí</th><th>PhieuYeuCau</th><th>Trạng thái</th><th></th></tr>
                     </thead>
                     <tbody>
                         @foreach ($locations as $location)
                             <tr>
                                 <td class="font-medium text-slate-800">{{ $location->ten }}</td>
-                                <td class="text-sm">{{ $location->toa_nha ?? '—' }}</td>
-                                <td class="text-sm">{{ $location->tang ?? '—' }}</td>
-                                <td class="text-sm">{{ $location->khu_vuc ?? '—' }}</td>
                                 <td class="text-sm">{{ $location->tickets_count }}</td>
                                 <td>
                                     @if ($location->dang_hoat_dong)

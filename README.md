@@ -67,9 +67,9 @@ quản trị viên cấu hình vai trò, nhóm xử lý và danh mục nền.
 
 | Bảng | Cột chính | Ý nghĩa |
 |---|---|---|
-| `nguoi_dung` | ten, email, dien_thoai, password, phong_ban_id, vi_tri_id, dang_hoat_dong, la_vip | Tài khoản người dùng |
-| `phong_ban` | ma, ten, mo_ta, dang_hoat_dong | Danh mục phòng ban |
-| `vi_tri` | ten, toa_nha, tang, khu_vuc, dang_hoat_dong | Vị trí / phòng làm việc |
+| `nguoi_dung` | ten, email, dien_thoai, password, phong_ban_id, vi_tri_id, dang_hoat_dong | Tài khoản người dùng |
+| `phong_ban` | ma, ten, dang_hoat_dong | Danh mục phòng ban |
+| `vi_tri` | ten, dang_hoat_dong | Vị trí / phòng làm việc |
 | `nhom_xu_ly` | ma, ten, truong_nhom_id, chien_luoc_phan_cong, dinh_muc | Nhóm kỹ thuật viên |
 | `nhom_xu_ly_nguoi_dung` | nhom_xu_ly_id, nguoi_dung_id, la_truong_nhom | Thành viên nhóm |
 | `danh_muc` | danh_muc_cha_id, ma, ten, nhom_mac_dinh_id, uu_tien_mac_dinh | Danh mục sự cố 2 cấp |
@@ -77,7 +77,7 @@ quản trị viên cấu hình vai trò, nhóm xử lý và danh mục nền.
 | `binh_luan_phieu` | phieu_yeu_cau_id, nguoi_dung_id, noi_dung, loai, la_phan_hoi_dau | Bình luận / ghi chú nội bộ |
 | `tep_dinh_kem` | phieu_yeu_cau_id, binh_luan_id, nguoi_tai_len_id, duong_dan, ten_goc, kich_thuoc | Tệp đính kèm |
 | `su_kien_phieu` | phieu_yeu_cau_id, nguoi_thuc_hien_id, loai, tu_gia_tri, den_gia_tri, du_lieu_them | Nhật ký hoạt động |
-| `lich_su_trang_thai` | phieu_yeu_cau_id, trang_thai_truoc, trang_thai_sau, bat_dau_luc, ket_thuc_luc, so_phut | Lịch sử trạng thái |
+| `lich_su_trang_thai` | phieu_yeu_cau_id, trang_thai_truoc, trang_thai_sau, bat_dau_luc, ket_thuc_luc | Lịch sử trạng thái |
 | `nguoi_theo_doi` | phieu_yeu_cau_id, nguoi_dung_id | Người theo dõi phiếu |
 
 Giá trị trạng thái lưu trong CSDL cũng là tiếng Việt không dấu:
@@ -190,7 +190,7 @@ Mật khẩu chung: **`11111111`**
 | Kỹ thuật viên (agent) | `agent2@ticket.it` | Nhóm Thiết bị + Ứng dụng – ERP |
 | Người yêu cầu | `requester@ticket.it` | Phòng HCNS — Phòng 305 |
 | Người yêu cầu | `requester2@ticket.it` | Phòng Kế toán — Phòng 201 |
-| Người yêu cầu VIP | `director@ticket.it` | Ban Giám hiệu, `la_vip = true` |
+| Người yêu cầu | `director@ticket.it` | Ban Giám hiệu |
 
 Tài khoản tạo qua trang **Đăng ký** mặc định nhận vai trò `requester`.
 
@@ -208,6 +208,6 @@ php artisan route:list    # danh sách route tiếng Việt
 ## 🗺️ Hướng phát triển
 
 - Phân loại tự động danh mục/ưu tiên từ nội dung phiếu.
-- Định tuyến tự động theo nhóm – khu vực – tải công việc.
+- Định tuyến tự động theo nhóm – tải công việc.
 - SLA theo giờ hành chính (tạm dừng khi chờ người dùng) và báo cáo tuân thủ.
 - Xuất báo cáo Excel/PDF và đánh giá hài lòng người dùng.

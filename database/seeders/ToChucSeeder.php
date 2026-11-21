@@ -27,16 +27,16 @@ class ToChucSeeder extends Seeder
         }
 
         $viTris = [
-            ['ten' => 'Phòng 305', 'toa_nha' => 'Tòa A', 'tang' => 'Tầng 3', 'khu_vuc' => 'Khu A'],
-            ['ten' => 'Phòng 201', 'toa_nha' => 'Tòa A', 'tang' => 'Tầng 2', 'khu_vuc' => 'Khu A'],
-            ['ten' => 'Phòng Lab 1', 'toa_nha' => 'Tòa B', 'tang' => 'Tầng 1', 'khu_vuc' => 'Khu B'],
-            ['ten' => 'Thư viện', 'toa_nha' => 'Tòa C', 'tang' => 'Tầng 1', 'khu_vuc' => 'Khu C'],
-            ['ten' => 'Phòng họp lớn', 'toa_nha' => 'Tòa A', 'tang' => 'Tầng 5', 'khu_vuc' => 'Khu A'],
+            ['ten' => 'Phòng 305'],
+            ['ten' => 'Phòng 201'],
+            ['ten' => 'Phòng Lab 1'],
+            ['ten' => 'Thư viện'],
+            ['ten' => 'Phòng họp lớn'],
         ];
 
         foreach ($viTris as $viTri) {
             ViTri::query()->updateOrCreate(
-                ['ten' => $viTri['ten'], 'toa_nha' => $viTri['toa_nha']],
+                ['ten' => $viTri['ten']],
                 $viTri + ['dang_hoat_dong' => true],
             );
         }

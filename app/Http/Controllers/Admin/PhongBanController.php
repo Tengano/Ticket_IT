@@ -71,7 +71,6 @@ class PhongBanController extends Controller
         $data = $request->validate([
             'ma' => ['required', 'string', 'max:32', Rule::unique('phong_ban', 'ma')->ignore($department)],
             'ten' => ['required', 'string', 'max:255'],
-            'mo_ta' => ['nullable', 'string', 'max:255'],
             'dang_hoat_dong' => ['boolean'],
         ]);
 

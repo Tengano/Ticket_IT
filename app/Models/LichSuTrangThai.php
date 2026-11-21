@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-#[Fillable(['phieu_yeu_cau_id', 'trang_thai_truoc', 'trang_thai_sau', 'nguoi_thuc_hien_id', 'ly_do', 'bat_dau_luc', 'ket_thuc_luc', 'so_phut'])]
+#[Fillable(['phieu_yeu_cau_id', 'trang_thai_truoc', 'trang_thai_sau', 'nguoi_thuc_hien_id', 'ly_do', 'bat_dau_luc', 'ket_thuc_luc'])]
 class LichSuTrangThai extends Model
 {
     protected $table = 'lich_su_trang_thai';
@@ -22,7 +22,6 @@ class LichSuTrangThai extends Model
             'trang_thai_sau' => TrangThaiPhieu::class,
             'bat_dau_luc' => 'datetime',
             'ket_thuc_luc' => 'datetime',
-            'so_phut' => 'integer',
         ];
     }
 

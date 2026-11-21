@@ -41,11 +41,6 @@
             </span>
         @endif
 
-        @if ($ticket->so_lan_mo_lai > 0)
-            <span class="inline-flex items-center gap-1 rounded-full bg-amber-50 px-2.5 py-1 text-xs font-medium text-amber-700 ring-1 ring-amber-200 ring-inset">
-                Đã mở lại {{ $ticket->so_lan_mo_lai }} lần
-            </span>
-        @endif
     </div>
 
     <div class="grid gap-6 lg:grid-cols-3">

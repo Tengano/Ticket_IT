@@ -16,10 +16,7 @@ class ViTriController extends Controller
 
         $locations = ViTri::query()
             ->withCount(['tickets'])
-            ->when($search, fn ($query, string $value) => $query->where('ten', 'like', "%{$value}%")
-                ->orWhere('toa_nha', 'like', "%{$value}%")
-                ->orWhere('khu_vuc', 'like', "%{$value}%"))
-            ->orderBy('toa_nha')
+            ->when($search, fn ($query, string $value) => $query->where('ten', 'like', "%{$value}%"))
             ->orderBy('ten')
             ->paginate(15)
             ->withQueryString();
@@ -72,10 +69,6 @@ class ViTriController extends Controller
     {
         $data = $request->validate([
             'ten' => ['required', 'string', 'max:255'],
-            'toa_nha' => ['nullable', 'string', 'max:255'],
-            'tang' => ['nullable', 'string', 'max:32'],
-            'khu_vuc' => ['nullable', 'string', 'max:32'],
-            'mo_ta' => ['nullable', 'string', 'max:255'],
             'dang_hoat_dong' => ['boolean'],
         ]);
 

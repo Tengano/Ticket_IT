@@ -15,7 +15,7 @@ use Spatie\Permission\Traits\HasRoles;
 
 #[Fillable([
     'ten', 'email', 'dien_thoai', 'password', 'phong_ban_id', 'vi_tri_id',
-    'dang_hoat_dong', 'la_vip', 'anh_dai_dien', 'phan_cong_gan_nhat_luc',
+    'dang_hoat_dong', 'anh_dai_dien', 'phan_cong_gan_nhat_luc',
 ])]
 #[Hidden(['password', 'remember_token'])]
 class NguoiDung extends Authenticatable
@@ -33,7 +33,6 @@ class NguoiDung extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
             'dang_hoat_dong' => 'boolean',
-            'la_vip' => 'boolean',
             'phan_cong_gan_nhat_luc' => 'datetime',
         ];
     }

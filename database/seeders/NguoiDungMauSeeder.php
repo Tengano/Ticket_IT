@@ -73,7 +73,6 @@ class NguoiDungMauSeeder extends Seeder
                 'phong_ban' => 'BGD',
                 'vi_tri' => 'Phòng họp lớn',
                 'nhom' => [],
-                'la_vip' => true,
             ],
         ];
 
@@ -87,7 +86,6 @@ class NguoiDungMauSeeder extends Seeder
                         'phong_ban_id' => $phongBans[$duLieu['phong_ban']] ?? null,
                         'vi_tri_id' => $viTris[$duLieu['vi_tri']] ?? null,
                         'dang_hoat_dong' => true,
-                        'la_vip' => $duLieu['la_vip'] ?? false,
                         'email_verified_at' => now(),
                     ],
                 );

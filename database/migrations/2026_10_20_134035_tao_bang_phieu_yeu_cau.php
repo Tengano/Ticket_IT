@@ -31,11 +31,6 @@ return new class extends Migration
             $table->timestamp('phan_hoi_dau_luc')->nullable();
             $table->timestamp('giai_quyet_luc')->nullable();
             $table->timestamp('dong_luc')->nullable();
-            $table->unsignedInteger('phut_xu_ly')->default(0);
-            $table->unsignedInteger('phut_cho')->default(0);
-            $table->unsignedInteger('phut_tam_dung')->default(0);
-            $table->unsignedTinyInteger('so_lan_mo_lai')->default(0);
-            $table->unsignedTinyInteger('diem_hai_long')->nullable();
             $table->timestamps();
 
             $table->index(['nguoi_yeu_cau_id', 'trang_thai']);
@@ -91,7 +86,6 @@ return new class extends Migration
             $table->string('ly_do')->nullable();
             $table->timestamp('bat_dau_luc')->nullable();
             $table->timestamp('ket_thuc_luc')->nullable();
-            $table->unsignedInteger('so_phut')->nullable();
             $table->timestamps();
             $table->index(['phieu_yeu_cau_id', 'created_at']);
         });

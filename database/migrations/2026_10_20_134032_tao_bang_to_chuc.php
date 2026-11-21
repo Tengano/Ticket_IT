@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('ma', 32)->unique();
             $table->string('ten');
-            $table->string('mo_ta')->nullable();
             $table->boolean('dang_hoat_dong')->default(true);
             $table->timestamps();
         });
@@ -23,10 +22,6 @@ return new class extends Migration
         Schema::create('vi_tri', function (Blueprint $table) {
             $table->id();
             $table->string('ten');
-            $table->string('toa_nha')->nullable();
-            $table->string('tang', 32)->nullable();
-            $table->string('khu_vuc', 32)->nullable()->index();
-            $table->string('mo_ta')->nullable();
             $table->boolean('dang_hoat_dong')->default(true);
             $table->timestamps();
         });
